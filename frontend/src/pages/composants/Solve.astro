@@ -1,0 +1,732 @@
+---
+// Solve.astro
+export interface Props {
+  title?: string;
+  subtitle?: string;
+  features?: Array<{
+    number: number;
+    title: string;
+    description: string;
+  }>;
+}
+
+const {
+  title = "Le Problème que nous Résolvons",
+  subtitle = "Pour les Producteurs : Vendez Mieux,\nProduisez Plus !",
+  features = [
+    {
+      number: 1,
+      title: "Publication Facile et Rapide",
+      description:
+        "Annoncez vos produits (type, prix, quantité) en temps réel, directement depuis votre téléphone.",
+    },
+    {
+      number: 2,
+      title: "Accès Direct aux Acheteurs",
+      description:
+        "Atteignez un large réseau de marchands, restaurateurs et ménages.",
+    },
+    {
+      number: 3,
+      title: "Paiement Mobile Sécurisé et Suivi de vos Ventes",
+      description:
+        "Recevez vos paiements de manière simple et sécurisée et des statistiques claires pour optimiser vos offres et vos profits.",
+    },
+    {
+      number: 4,
+      title: "Réduction des Coûts et des Pertes",
+      description:
+        "Éliminez les intermédiaires et vendez rapidement vos récoltes.",
+    },
+  ],
+} = Astro.props;
+---
+
+<section class="solve-section">
+  <div class="solve-container">
+    <!-- Header -->
+    <div class="solve-header">
+      <h2 class="solve-title">{title}</h2>
+      <p class="solve-subtitle">{subtitle}</p>
+    </div>
+
+    <!-- Contenu principal -->
+    <div class="solve-content">
+      <!-- Feature 1 -->
+      <div class="feature-card feature-1" data-aos="fade-right">
+        <div class="feature-number">
+          <span>{features[0].number}</span>
+        </div>
+        <div class="feature-text">
+          <h3>{features[0].title}</h3>
+          <p>{features[0].description}</p>
+        </div>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feature-card feature-2" data-aos="fade-left">
+        <div class="feature-number">
+          <span>{features[1].number}</span>
+        </div>
+        <div class="feature-text">
+          <h3>{features[1].title}</h3>
+          <p>{features[1].description}</p>
+        </div>
+      </div>
+
+      <!-- Téléphone central -->
+      <div class="phone-container" data-aos="zoom-in">
+        <div class="phone-bg-circle"></div>
+        <div class="phone-mockup-solve">
+          <div class="phone-frame-solve">
+            <div class="phone-screen-solve">
+              <!-- Status bar -->
+              <div class="status-bar-solve">
+                <div class="status-left">
+                  <svg
+                    class="back-arrow"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path
+                      d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
+                    ></path>
+                  </svg>
+                  <span class="welcome-text">Bienvenue sur GléHi</span>
+                </div>
+                <div class="status-right">
+                  <span class="time">9:41</span>
+                  <div class="signal-icons">
+                    <span class="signal">📶</span>
+                    <span class="wifi">📶</span>
+                    <span class="battery">🔋</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- App content -->
+              <div class="app-content-solve">
+                <div class="welcome-message">
+                  <p>
+                    Pour vous offrir la meilleure expérience, dites-nous quel
+                    rôle vous souhaitez jouer sur GléHi.
+                  </p>
+                </div>
+
+                <!-- Producteur Card -->
+                <div class="role-card producteur-card">
+                  <div class="role-illustration">
+                    <div class="farmer-scene">
+                      <div class="farmer-figure"></div>
+                      <div class="crops"></div>
+                      <div class="sun"></div>
+                    </div>
+                  </div>
+                  <p class="role-description">
+                    Vendez vos produits frais directement aux acheteurs locaux
+                    et augmentez vos revenus.
+                  </p>
+                  <button class="role-button producteur-btn">PRODUCTEUR</button>
+                </div>
+
+                <!-- Acheteur Card -->
+                <div class="role-card acheteur-card">
+                  <div class="role-illustration">
+                    <div class="buyer-scene">
+                      <div class="shopping-items"></div>
+                      <div class="buyer-figure"></div>
+                    </div>
+                  </div>
+                  <p class="role-description">
+                    Trouvez facilement des produits frais de qualité et soutenez
+                    l'agriculture locale.
+                  </p>
+                  <button class="role-button acheteur-btn">ACHETEUR</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feature-card feature-3" data-aos="fade-right">
+        <div class="feature-number">
+          <span>{features[2].number}</span>
+        </div>
+        <div class="feature-text">
+          <h3>{features[2].title}</h3>
+          <p>{features[2].description}</p>
+        </div>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feature-card feature-4" data-aos="fade-left">
+        <div class="feature-number">
+          <span>{features[3].number}</span>
+        </div>
+        <div class="feature-text">
+          <h3>{features[3].title}</h3>
+          <p>{features[3].description}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Éléments décoratifs -->
+    <div class="decorative-bg">
+      <div class="bg-shape shape-1"></div>
+      <div class="bg-shape shape-2"></div>
+      <div class="bg-shape shape-3"></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .solve-section {
+    padding: 5rem 0;
+    background: linear-gradient(135deg, #f8fffe 0%, #f0f9f4 50%, #e8f5e8 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .solve-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+  }
+
+  .solve-header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  .solve-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: #1a365d;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .solve-subtitle {
+    font-size: 1.125rem;
+    color: #718096;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+    white-space: pre-line;
+  }
+
+  .solve-content {
+    display: grid;
+    grid-template-columns: 1fr 400px 1fr;
+    grid-template-rows: auto auto;
+    gap: 2rem;
+    align-items: center;
+    position: relative;
+  }
+
+  .feature-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .feature-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #4a7c59, #6b8e23);
+    transform: scaleX(0);
+    transition: transform 0.4s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .feature-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .feature-1 {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: end;
+  }
+
+  .feature-2 {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: start;
+  }
+
+  .feature-3 {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: end;
+  }
+
+  .feature-4 {
+    grid-column: 3;
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .feature-number {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #4a7c59, #6b8e23);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    box-shadow: 0 8px 20px rgba(74, 124, 89, 0.3);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .feature-text h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .feature-text p {
+    color: #718096;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .phone-container {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+  }
+
+  .phone-bg-circle {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(
+      135deg,
+      rgba(74, 124, 89, 0.2),
+      rgba(107, 142, 35, 0.1)
+    );
+    border-radius: 50%;
+    z-index: 1;
+    animation: rotate 20s linear infinite;
+  }
+
+  .phone-mockup-solve {
+    position: relative;
+    z-index: 2;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .phone-frame-solve {
+    width: 280px;
+    height: 580px;
+    background: #1a1a1a;
+    border-radius: 2.5rem;
+    padding: 0.5rem;
+    box-shadow:
+      0 25px 50px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+
+  .phone-screen-solve {
+    width: 100%;
+    height: 100%;
+    background: white;
+    border-radius: 2rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .status-bar-solve {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1.25rem;
+    background: white;
+    font-size: 0.875rem;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .status-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .back-arrow {
+    width: 20px;
+    height: 20px;
+    color: #4a7c59;
+  }
+
+  .welcome-text {
+    font-weight: 600;
+    color: #2d3748;
+    font-size: 0.9rem;
+  }
+
+  .status-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .time {
+    font-weight: 600;
+    color: #2d3748;
+  }
+
+  .app-content-solve {
+    padding: 1.5rem;
+    height: calc(100% - 60px);
+    overflow-y: auto;
+  }
+
+  .welcome-message {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .welcome-message p {
+    font-size: 0.875rem;
+    color: #718096;
+    line-height: 1.5;
+  }
+
+  .role-card {
+    background: #f8f9fa;
+    border-radius: 1rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .role-card:hover {
+    border-color: #4a7c59;
+    background: #f0f8f0;
+  }
+
+  .role-illustration {
+    height: 80px;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .farmer-scene {
+    position: relative;
+    width: 60px;
+    height: 60px;
+  }
+
+  .farmer-figure {
+    width: 30px;
+    height: 40px;
+    background: linear-gradient(135deg, #8b4513, #a0522d);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: absolute;
+    top: 10px;
+    left: 15px;
+  }
+
+  .crops {
+    width: 20px;
+    height: 15px;
+    background: linear-gradient(45deg, #228b22, #32cd32);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+  }
+
+  .sun {
+    width: 15px;
+    height: 15px;
+    background: linear-gradient(135deg, #ffd700, #ffa500);
+    border-radius: 50%;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+
+  .buyer-scene {
+    position: relative;
+    width: 60px;
+    height: 60px;
+  }
+
+  .shopping-items {
+    width: 25px;
+    height: 20px;
+    background: linear-gradient(45deg, #ff6347, #ff4500);
+    border-radius: 20%;
+    position: absolute;
+    top: 15px;
+    left: 10px;
+  }
+
+  .buyer-figure {
+    width: 25px;
+    height: 35px;
+    background: linear-gradient(135deg, #4169e1, #6495ed);
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    position: absolute;
+    top: 15px;
+    right: 10px;
+  }
+
+  .role-description {
+    font-size: 0.8rem;
+    color: #718096;
+    line-height: 1.4;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+
+  .role-button {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .producteur-btn {
+    background: #4a7c59;
+    color: white;
+  }
+
+  .producteur-btn:hover {
+    background: #3d6b4a;
+    transform: translateY(-2px);
+  }
+
+  .acheteur-btn {
+    background: #2563eb;
+    color: white;
+  }
+
+  .acheteur-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+  }
+
+  .decorative-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(
+      45deg,
+      rgba(74, 124, 89, 0.05),
+      rgba(107, 142, 35, 0.05)
+    );
+  }
+
+  .shape-1 {
+    width: 200px;
+    height: 200px;
+    top: 10%;
+    left: 5%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .shape-2 {
+    width: 150px;
+    height: 150px;
+    top: 60%;
+    right: 10%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .shape-3 {
+    width: 100px;
+    height: 100px;
+    bottom: 20%;
+    left: 15%;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      box-shadow: 0 8px 20px rgba(74, 124, 89, 0.3);
+    }
+    50% {
+      transform: scale(1.05);
+      box-shadow: 0 12px 30px rgba(74, 124, 89, 0.4);
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .solve-content {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 3rem;
+    }
+
+    .feature-card {
+      justify-self: center !important;
+      max-width: 500px;
+    }
+
+    .phone-container {
+      grid-column: 1;
+      grid-row: 3;
+      order: 3;
+    }
+
+    .feature-1 {
+      order: 1;
+    }
+    .feature-2 {
+      order: 2;
+    }
+    .feature-3 {
+      order: 4;
+    }
+    .feature-4 {
+      order: 5;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .solve-section {
+      padding: 3rem 0;
+    }
+
+    .feature-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 1rem;
+    }
+
+    .phone-frame-solve {
+      width: 250px;
+      height: 520px;
+    }
+
+    .phone-bg-circle {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .solve-container {
+      padding: 0 1rem;
+    }
+
+    .feature-card {
+      padding: 1.5rem;
+    }
+
+    .phone-frame-solve {
+      width: 220px;
+      height: 460px;
+    }
+  }
+</style>
+
+<script>
+  // Animation on scroll
+  document.addEventListener("DOMContentLoaded", function () {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: "0px 0px -50px 0px",
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const target = entry.target as HTMLElement;
+          target.style.opacity = "1";
+          target.style.transform = "translateY(0) scale(1)";
+        }
+      });
+    }, observerOptions);
+
+    // Observer les cartes features
+    document.querySelectorAll(".feature-card").forEach((card) => {
+      const cardElement = card as HTMLElement;
+      cardElement.style.opacity = "0";
+      cardElement.style.transform = "translateY(30px) scale(0.95)";
+      cardElement.style.transition = "all 0.6s ease";
+      observer.observe(card);
+    });
+
+    // Observer le téléphone
+    const phoneContainer = document.querySelector(".phone-container");
+    if (phoneContainer) {
+      const phoneElement = phoneContainer as HTMLElement;
+      phoneElement.style.opacity = "0";
+      phoneElement.style.transform = "scale(0.8)";
+      phoneElement.style.transition = "all 0.8s ease";
+      observer.observe(phoneContainer);
+    }
+  });
+</script>

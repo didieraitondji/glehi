@@ -1,0 +1,410 @@
+---
+// Footer.astro
+const currentYear = new Date().getFullYear();
+
+const quickLinks = [
+  { name: "À propos", href: "/about" },
+  { name: "Nous contacter", href: "/contact" },
+  { name: "Produits", href: "/products" },
+  { name: "Blog", href: "/blog" },
+];
+
+const features = [
+  { name: "Business Marketing", href: "/business-marketing" },
+  { name: "Devenir Partenaire", href: "/partnership" },
+  { name: "Support", href: "/support" },
+  { name: "Politiques et confidentialités", href: "/privacy" },
+];
+
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "#",
+    icon: "M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z",
+  },
+  {
+    name: "Instagram",
+    href: "#",
+    icon: "M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987c6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM12 16.624c-2.563 0-4.637-2.074-4.637-4.637S9.437 7.35 12 7.35s4.637 2.074 4.637 4.637S14.563 16.624 12 16.624z",
+  },
+  {
+    name: "Twitter",
+    href: "#",
+    icon: "M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z",
+  },
+];
+---
+
+<footer class="footer">
+  <div class="footer-content">
+    <div class="container">
+      <!-- Section principale -->
+      <div class="footer-main">
+        <!-- Logo et description -->
+        <div class="footer-brand">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="GléHi" class="footer-logo-text" />
+          </div>
+
+          <p class="footer-description">
+            <strong>GléHi</strong> - Plateforme intelligente pour<br />
+            la vente directe agricole au Bénin.
+          </p>
+
+          <!-- Réseaux sociaux -->
+          <div class="social-links">
+            {
+              socialLinks.map((social) => (
+                <a
+                  href={social.href}
+                  class="social-link"
+                  aria-label={social.name}
+                >
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d={social.icon} />
+                  </svg>
+                </a>
+              ))
+            }
+          </div>
+        </div>
+
+        <!-- Liens rapides -->
+        <div class="footer-section">
+          <h3 class="footer-title">Liens rapides</h3>
+          <ul class="footer-links">
+            {
+              quickLinks.map((link) => (
+                <li>
+                  <a href={link.href} class="footer-link">
+                    {link.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <!-- Features -->
+        <div class="footer-section">
+          <h3 class="footer-title">Features</h3>
+          <ul class="footer-links">
+            {
+              features.map((feature) => (
+                <li>
+                  <a href={feature.href} class="footer-link">
+                    {feature.name}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Copyright -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="copyright">
+        <p>Copyright © {currentYear} AgriMarket+. Tous droits réservés.</p>
+      </div>
+      <div class="footer-cursor">
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M2 2L18 10L10 12L8 18L2 2Z" fill="currentColor"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+    margin-top: auto;
+  }
+
+  .footer-content {
+    padding: 4rem 0 2rem;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 4rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Brand Section */
+  .footer-brand {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .logo-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 2px 8px rgba(46, 125, 50, 0.2));
+  }
+
+  .footer-logo-text {
+    height: 150px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .footer-description {
+    color: #6b7280;
+    line-height: 1.6;
+    margin: 0;
+    font-size: 1rem;
+  }
+
+  .footer-description strong {
+    color: #2e7d32;
+    font-weight: 700;
+  }
+
+  /* Social Links */
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: rgba(46, 125, 50, 0.1);
+    color: #2e7d32;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(46, 125, 50, 0.2);
+  }
+
+  .social-link:hover {
+    background: #2e7d32;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(46, 125, 50, 0.3);
+  }
+
+  /* Footer Sections */
+  .footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer-title {
+    color: #1f2937;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+    position: relative;
+  }
+
+  .footer-title::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    border-radius: 2px;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .footer-link {
+    color: #6b7280;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding: 0.25rem 0;
+  }
+
+  .footer-link:hover {
+    color: #2e7d32;
+    transform: translateX(4px);
+  }
+
+  .footer-link::before {
+    content: "";
+    position: absolute;
+    left: -16px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 2px;
+    background: #4caf50;
+    transition: width 0.3s ease;
+    border-radius: 1px;
+  }
+
+  .footer-link:hover::before {
+    width: 8px;
+  }
+
+  /* Footer Bottom */
+  .footer-bottom {
+    background: linear-gradient(135deg, #b8c5a2 0%, #a8b895 100%);
+    padding: 1.5rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .footer-bottom .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .copyright {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+  }
+
+  .copyright p {
+    margin: 0;
+  }
+
+  .footer-cursor {
+    color: rgba(255, 255, 255, 0.7);
+    transition: all 0.3s ease;
+  }
+
+  .footer-cursor:hover {
+    color: white;
+    transform: rotate(15deg);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .footer-main {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-brand {
+      grid-column: 1 / -1;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer-content {
+      padding: 3rem 0 1.5rem;
+    }
+
+    .footer-main {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+
+    .footer-brand {
+      text-align: center;
+      grid-column: 1;
+      margin-bottom: 0;
+    }
+
+    .footer-logo {
+      justify-content: center;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .footer-bottom .container {
+      flex-direction: column;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 0 1rem;
+    }
+
+    .footer-main {
+      gap: 2rem;
+    }
+
+    .social-links {
+      gap: 0.75rem;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  /* Animation des éléments au scroll */
+  @media (prefers-reduced-motion: no-preference) {
+    .footer-section {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .footer-section:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .footer-section:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+</style>

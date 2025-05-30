@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+import Header from "./composants/Header.astro";
+import Banner from "./composants/Banner.astro";
+import Solve from "./composants/Solve.astro";
+import GlehiHero from "./composants/GlehiHero.astro";
+import Testimonials from "./composants/Testimonials.astro";
+import Footer from "./composants/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="shortcut icon"
+      href="/images/favicon_sbg.png"
+      type="image/x-icon"
+    />
+    <title>Astro</title>
+  </head>
+  <body>
+    <Header />
+
+    <!-- Banner -->
+    <Banner />
+
+    <!-- Solve -->
+    <Solve />
+
+    <!-- GlehiHero -->
+    <GlehiHero />
+
+    <!-- Testimonials -->
+    <Testimonials />
+
+    <!-- Footer -->
+    <Footer />
+  </body>
+</html>

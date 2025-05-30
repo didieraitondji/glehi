@@ -1,0 +1,31 @@
+---
+import "../styles/global.css";
+import Header from "./composants/Header.astro";
+import NotFound from "./composants/NotFound.astro";
+import Footer from "./composants/Footer.astro";
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <link
+      rel="shortcut icon"
+      href="/images/favicon_sbg.png"
+      type="image/x-icon"
+    />
+    <title>Erreur 404 | GléHi</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <Header />
+
+    <!-- Not Found -->
+    <NotFound />
+
+    <!-- Footer -->
+    <Footer />
+  </body>
+</html>
