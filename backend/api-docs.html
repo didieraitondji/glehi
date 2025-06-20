@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation API Glehi</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .header {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 30px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      }
+
+      .header h1 {
+        font-size: 3rem;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 20px;
+      }
+
+      .status-badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #4caf50, #45a049);
+        color: white;
+        padding: 8px 20px;
+        border-radius: 25px;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .base-url {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .base-url h2 {
+        color: #667eea;
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+      }
+
+      .url-box {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 15px;
+        font-family: "Courier New", monospace;
+        font-size: 1.1rem;
+        color: #495057;
+        margin-bottom: 10px;
+      }
+
+      .endpoint-section {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 25px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .endpoint-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      }
+
+      .endpoint-section h2 {
+        color: #667eea;
+        margin-bottom: 20px;
+        font-size: 1.8rem;
+        border-bottom: 3px solid #667eea;
+        padding-bottom: 10px;
+      }
+
+      .endpoint {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 15px;
+        border-left: 5px solid #667eea;
+        transition: all 0.3s ease;
+      }
+
+      .endpoint:hover {
+        background: #e9ecef;
+        transform: translateX(5px);
+      }
+
+      .method {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: bold;
+        font-size: 0.8rem;
+        margin-right: 15px;
+        color: white;
+        text-transform: uppercase;
+      }
+
+      .method.get {
+        background: linear-gradient(135deg, #28a745, #20c997);
+      }
+      .method.post {
+        background: linear-gradient(135deg, #007bff, #0056b3);
+      }
+      .method.put {
+        background: linear-gradient(135deg, #ffc107, #e0a800);
+      }
+      .method.delete {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+      }
+
+      .endpoint-url {
+        font-family: "Courier New", monospace;
+        font-size: 1.1rem;
+        color: #495057;
+        margin-left: 10px;
+      }
+
+      .endpoint-description {
+        color: #666;
+        font-size: 0.95rem;
+        margin-top: 10px;
+        padding-left: 20px;
+      }
+
+      .footer {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border-radius: 15px;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      .footer h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+
+      .footer p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      @media (max-width: 768px) {
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .container {
+          padding: 15px;
+        }
+
+        .header,
+        .endpoint-section,
+        .base-url,
+        .footer {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>🎉 API Glehi</h1>
+        <p>Documentation complète de l'API REST</p>
+        <span class="status-badge">🚀 En développement</span>
+      </div>
+
+      <div class="base-url">
+        <h2>📍 URL de base</h2>
+        <div class="url-box">https://glehi.onrender.com/</div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>👥 Utilisateurs</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/users</span>
+          <div class="endpoint-description">
+            Récupérer tous les utilisateurs
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/users/:id</span>
+          <div class="endpoint-description">
+            Récupérer un utilisateur par ID
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/users</span>
+          <div class="endpoint-description">Créer un nouvel utilisateur</div>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="endpoint-url">/api/users/:id</span>
+          <div class="endpoint-description">Mettre à jour un utilisateur</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/users/:id</span>
+          <div class="endpoint-description">Supprimer un utilisateur</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>🛍️ Produits</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/products</span>
+          <div class="endpoint-description">Récupérer tous les produits</div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/products/:id</span>
+          <div class="endpoint-description">Récupérer un produit par ID</div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/products</span>
+          <div class="endpoint-description">Créer un nouveau produit</div>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="endpoint-url">/api/products/:id</span>
+          <div class="endpoint-description">Mettre à jour un produit</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/products/:id</span>
+          <div class="endpoint-description">Supprimer un produit</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>📦 Commandes</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/orders</span>
+          <div class="endpoint-description">Récupérer toutes les commandes</div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/orders/:id</span>
+          <div class="endpoint-description">Récupérer une commande par ID</div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/orders</span>
+          <div class="endpoint-description">Créer une nouvelle commande</div>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="endpoint-url">/api/orders/:id</span>
+          <div class="endpoint-description">Mettre à jour une commande</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/orders/:id</span>
+          <div class="endpoint-description">Supprimer une commande</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>💰 Transactions</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/transactions</span>
+          <div class="endpoint-description">
+            Récupérer toutes les transactions
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/transactions/:id</span>
+          <div class="endpoint-description">
+            Récupérer une transaction par ID
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/transactions</span>
+          <div class="endpoint-description">Créer une nouvelle transaction</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>⭐ Avis</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/reviews</span>
+          <div class="endpoint-description">Récupérer tous les avis</div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/reviews/:id</span>
+          <div class="endpoint-description">Récupérer un avis par ID</div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/reviews</span>
+          <div class="endpoint-description">Créer un nouvel avis</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/reviews/:id</span>
+          <div class="endpoint-description">Supprimer un avis</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>📂 Catégories</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/categories</span>
+          <div class="endpoint-description">
+            Récupérer toutes les catégories
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/categories/:id</span>
+          <div class="endpoint-description">Récupérer une catégorie par ID</div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/categories</span>
+          <div class="endpoint-description">Créer une nouvelle catégorie</div>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="endpoint-url">/api/categories/:id</span>
+          <div class="endpoint-description">Mettre à jour une catégorie</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/categories/:id</span>
+          <div class="endpoint-description">Supprimer une catégorie</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>💬 Messages</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/messages</span>
+          <div class="endpoint-description">Récupérer tous les messages</div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/messages/:id</span>
+          <div class="endpoint-description">Récupérer un message par ID</div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/messages</span>
+          <div class="endpoint-description">Créer un nouveau message</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/messages/:id</span>
+          <div class="endpoint-description">Supprimer un message</div>
+        </div>
+      </div>
+
+      <div class="endpoint-section">
+        <h2>🔔 Notifications</h2>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/notifications</span>
+          <div class="endpoint-description">
+            Récupérer toutes les notifications
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method get">GET</span>
+          <span class="endpoint-url">/api/notifications/:id</span>
+          <div class="endpoint-description">
+            Récupérer une notification par ID
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method post">POST</span>
+          <span class="endpoint-url">/api/notifications</span>
+          <div class="endpoint-description">
+            Créer une nouvelle notification
+          </div>
+        </div>
+        <div class="endpoint">
+          <span class="method put">PUT</span>
+          <span class="endpoint-url">/api/notifications/:id</span>
+          <div class="endpoint-description">Marquer comme lue</div>
+        </div>
+        <div class="endpoint">
+          <span class="method delete">DELETE</span>
+          <span class="endpoint-url">/api/notifications/:id</span>
+          <div class="endpoint-description">Supprimer une notification</div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <h3>📝 Notes de développement</h3>
+        <p>
+          Cette API est actuellement en phase de développement. Toutes les
+          routes sont configurées et prêtes à être testées.
+        </p>
+        <p>
+          Assurez-vous que votre serveur fonctionne sur le port configuré avant
+          de tester les endpoints.
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
