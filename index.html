@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Documentation API Glehi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#667eea",
+              secondary: "#764ba2",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-gradient-to-br from-primary to-secondary min-h-screen">
+    <!-- Header -->
+    <header
+      class="bg-white/90 backdrop-blur-lg border-b border-white/20 sticky top-0 z-50"
+    >
+      <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-3">
+            <div class="text-3xl">🎉</div>
+            <div>
+              <h1
+                class="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent"
+              >
+                API Glehi
+              </h1>
+              <p class="text-sm text-gray-600">Documentation REST API</p>
+            </div>
+          </div>
+          <div class="flex items-center space-x-4">
+            <span
+              class="bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold"
+            >
+              🚀 En développement
+            </span>
+            <div class="text-sm text-gray-600">
+              <code class="bg-gray-100 px-2 py-1 rounded"
+                >glehi.onrender.com</code
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Navigation Menu -->
+    <nav class="bg-white/80 backdrop-blur-md border-b border-white/20">
+      <div class="container mx-auto px-6">
+        <div class="flex overflow-x-auto scrollbar-hide py-4 space-x-6">
+          <a
+            href="#"
+            class="px-4 py-2 bg-primary text-white rounded-lg whitespace-nowrap hover:bg-primary/80 transition-colors"
+          >
+            Accueil
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Utilisateurs
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Produits
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Commandes
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Transactions
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Avis
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Catégories
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Messages
+          </a>
+          <a
+            href="#"
+            class="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg whitespace-nowrap transition-colors"
+          >
+            Notifications
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-6 py-8">
+      <div class="bg-white/90 backdrop-blur-lg rounded-2xl shadow-xl p-8">
+        <!-- Page d'accueil -->
+        <div class="text-center mb-8">
+          <h2 class="text-4xl font-bold text-gray-800 mb-4">
+            Bienvenue sur l'API Glehi
+          </h2>
+          <p class="text-lg text-gray-600 mb-6">
+            Explorez notre API REST complète pour gérer vos données
+          </p>
+
+          <!-- URL de base -->
+          <div class="bg-gray-50 rounded-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              📍 URL de base
+            </h3>
+            <div
+              class="bg-white border-2 border-gray-200 rounded-lg p-4 font-mono text-lg text-gray-700"
+            >
+              https://glehi.onrender.com
+            </div>
+            <p class="mt-4 text-gray-600">
+              <strong>Route de test :</strong>
+              <code class="bg-gray-200 px-2 py-1 rounded text-sm">GET /</code>
+              → "🎉 Bienvenue sur l'API Glehi"
+            </p>
+            <p class="mt-2 text-gray-600">
+              <strong>Documentation complète :</strong>
+              <a
+                href="https://glehi.onrender.com/docs/"
+                target="_blank"
+                class="text-primary hover:underline"
+              >
+                https://glehi.onrender.com/docs/
+              </a>
+            </p>
+          </div>
+
+          <!-- Statistiques rapides -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-blue-50 rounded-lg p-6">
+              <div class="text-3xl mb-2">📊</div>
+              <h4 class="font-semibold text-gray-800">9 Endpoints</h4>
+              <p class="text-gray-600 text-sm">Catégories d'API</p>
+            </div>
+            <div class="bg-green-50 rounded-lg p-6">
+              <div class="text-3xl mb-2">🔄</div>
+              <h4 class="font-semibold text-gray-800">REST API</h4>
+              <p class="text-gray-600 text-sm">Architecture complète</p>
+            </div>
+            <div class="bg-purple-50 rounded-lg p-6">
+              <div class="text-3xl mb-2">🚀</div>
+              <h4 class="font-semibold text-gray-800">En développement</h4>
+              <p class="text-gray-600 text-sm">Mise à jour continue</p>
+            </div>
+          </div>
+
+          <!-- Guide de démarrage rapide -->
+          <div class="bg-gray-50 rounded-lg p-6 text-left">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">
+              🚀 Démarrage rapide
+            </h3>
+            <div class="space-y-4">
+              <div class="flex items-start space-x-3">
+                <span
+                  class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold"
+                  >1</span
+                >
+                <div>
+                  <p class="font-medium text-gray-800">Testez la connexion</p>
+                  <code class="text-sm text-gray-600 bg-white px-2 py-1 rounded"
+                    >curl https://glehi.onrender.com</code
+                  >
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <span
+                  class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold"
+                  >2</span
+                >
+                <div>
+                  <p class="font-medium text-gray-800">Naviguez dans le menu</p>
+                  <p class="text-sm text-gray-600">
+                    Choisissez un endpoint pour voir sa documentation
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-3">
+                <span
+                  class="bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold"
+                  >3</span
+                >
+                <div>
+                  <p class="font-medium text-gray-800">Testez les requêtes</p>
+                  <p class="text-sm text-gray-600">
+                    Utilisez votre client HTTP préféré
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white/80 backdrop-blur-md border-t border-white/20 mt-12">
+      <div class="container mx-auto px-6 py-8">
+        <div class="text-center">
+          <div class="mb-6">
+            <h4 class="font-semibold text-gray-800 mb-4">⚡ Statut de l'API</h4>
+            <div class="flex justify-center space-x-6">
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                <span class="text-sm text-gray-600">API Opérationnelle</span>
+              </div>
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <span class="text-sm text-gray-600">En développement</span>
+              </div>
+            </div>
+            <p class="text-xs text-gray-500 mt-4">
+              Dernière mise à jour : Juin 2025
+            </p>
+          </div>
+
+          <div class="border-t border-gray-200 pt-6">
+            <p class="text-sm text-gray-600">
+              © 2025 API Glehi - Documentation générée automatiquement
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
