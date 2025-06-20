@@ -27,7 +27,7 @@ app.use("/api/notifications", notificationRoutes);
 
 // Route de test
 app.get("/", (req, res) => {
-  res.send("🎉 Bienvenue sur l’API Glehi");
+  res.sendFile(path.join(__dirname, "api-docs.html"));
 });
 
 module.exports = app;
