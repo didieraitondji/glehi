@@ -18,6 +18,12 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: Liste des utilisateurs récupérée avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/User'
  *       500:
  *         description: Erreur serveur
  */
@@ -39,6 +45,10 @@ router.get("/", userController.getAllUsers);
  *     responses:
  *       200:
  *         description: Utilisateur trouvé
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: Utilisateur non trouvé
  */
@@ -55,20 +65,14 @@ router.get("/:id", userController.getUserById);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             required:
- *               - nom
- *               - email
- *             properties:
- *               nom:
- *                 type: string
- *               email:
- *                 type: string
- *               motDePasse:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       201:
  *         description: Utilisateur créé avec succès
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       400:
  *         description: Données invalides
  */
@@ -92,15 +96,14 @@ router.post("/", userController.createUser);
  *       content:
  *         application/json:
  *           schema:
- *             type: object
- *             properties:
- *               nom:
- *                 type: string
- *               email:
- *                 type: string
+ *             $ref: '#/components/schemas/User'
  *     responses:
  *       200:
  *         description: Utilisateur modifié
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
  *       404:
  *         description: Utilisateur non trouvé
  */
