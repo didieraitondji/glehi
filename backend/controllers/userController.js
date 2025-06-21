@@ -85,3 +85,68 @@ exports.changePassword = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Fonction pour trouver les acheteurs à proximité
+exports.findNearbyBuyers = async (req, res) => {
+  try {
+    const { lat, lng, maxDistanceKm = 10 } = req.query;
+
+    if (!lat || !lng) {
+      return res
+        .status(400)
+        .json({ error: "Latitude et longitude sont requises" });
+    }
+
+    const maxDistanceMeters = maxDistanceKm * 1000;
+
+    const buyers = await User.find({
+      role: "buyer",
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(lng), parseFloat(lat)],
+          },
+          $maxDistance: maxDistanceMeters,
+        },
+      },
+    });
+
+    res.json(buyers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+// Fonction pour trouver les producteurs à proximité
+exports.findNearbyFarmers = async (req, res) => {
+  try {
+    const { lat, lng, maxDistanceKm = 10 } = req.query;
+
+    if (!lat || !lng) {
+      return res
+        .status(400)
+        .json({ error: "Latitude et longitude sont requises" });
+    }
+
+    // Conversion km en mètres pour MongoDB
+    const maxDistanceMeters = maxDistanceKm * 1000;
+
+    const farmers = await User.find({
+      role: "farmer",
+      location: {
+        $near: {
+          $geometry: {
+            type: "Point",
+            coordinates: [parseFloat(lng), parseFloat(lat)],
+          },
+          $maxDistance: maxDistanceMeters,
+        },
+      },
+    });
+
+    res.json(farmers);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
