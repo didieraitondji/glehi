@@ -1,6 +1,7 @@
 const express = require("express");
 const transactionController = require("../controllers/transactionController");
 const transactionRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const transactionRouter = express.Router();
  *   get:
  *     summary: Obtenir toutes les transactions
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des transactions récupérée avec succès
@@ -27,7 +30,11 @@ const transactionRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-transactionRouter.get("/", transactionController.getAllTransactions);
+transactionRouter.get(
+  "/",
+  verifyToken,
+  transactionController.getAllTransactions
+);
 
 /**
  * @swagger
@@ -35,6 +42,8 @@ transactionRouter.get("/", transactionController.getAllTransactions);
  *   get:
  *     summary: Obtenir une transaction par ID
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +61,11 @@ transactionRouter.get("/", transactionController.getAllTransactions);
  *       404:
  *         description: Transaction non trouvée
  */
-transactionRouter.get("/:id", transactionController.getTransactionById);
+transactionRouter.get(
+  "/:id",
+  verifyToken,
+  transactionController.getTransactionById
+);
 
 /**
  * @swagger
@@ -60,6 +73,8 @@ transactionRouter.get("/:id", transactionController.getTransactionById);
  *   post:
  *     summary: Créer une nouvelle transaction
  *     tags: [Transactions]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,6 +91,10 @@ transactionRouter.get("/:id", transactionController.getTransactionById);
  *       400:
  *         description: Données invalides
  */
-transactionRouter.post("/", transactionController.createTransaction);
+transactionRouter.post(
+  "/",
+  verifyToken,
+  transactionController.createTransaction
+);
 
 module.exports = transactionRouter;

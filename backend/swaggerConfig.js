@@ -14,6 +14,13 @@ const options = {
       },
     ],
     components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+          bearerFormat: "JWT",
+        },
+      },
       schemas: {
         User: {
           type: "object",
@@ -136,8 +143,36 @@ const options = {
             createdAt: { type: "string", format: "date-time" },
           },
         },
+        AuthLogin: {
+          type: "object",
+          required: ["phone", "password"],
+          properties: {
+            phone: { type: "string" },
+            password: { type: "string" },
+          },
+        },
+        AuthRegister: {
+          type: "object",
+          required: ["firstName", "lastName", "phone", "password", "role"],
+          properties: {
+            firstName: { type: "string" },
+            lastName: { type: "string" },
+            phone: { type: "string" },
+            password: { type: "string" },
+            role: {
+              type: "string",
+              enum: ["farmer", "buyer", "admin"],
+            },
+            location: { type: "string" },
+          },
+        },
       },
     },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
   },
   apis: ["./routes/*.js"],
 };

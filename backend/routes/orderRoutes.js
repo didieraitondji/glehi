@@ -1,6 +1,7 @@
 const express = require("express");
 const orderController = require("../controllers/orderController");
 const orderRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const orderRouter = express.Router();
  *   get:
  *     summary: Obtenir toutes les commandes
  *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des commandes récupérée avec succès
@@ -27,7 +30,7 @@ const orderRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-orderRouter.get("/", orderController.getAllOrders);
+orderRouter.get("/", verifyToken, orderController.getAllOrders);
 
 /**
  * @swagger
@@ -35,6 +38,8 @@ orderRouter.get("/", orderController.getAllOrders);
  *   get:
  *     summary: Obtenir une commande par ID
  *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +57,7 @@ orderRouter.get("/", orderController.getAllOrders);
  *       404:
  *         description: Commande non trouvée
  */
-orderRouter.get("/:id", orderController.getOrderById);
+orderRouter.get("/:id", verifyToken, orderController.getOrderById);
 
 /**
  * @swagger
@@ -60,6 +65,8 @@ orderRouter.get("/:id", orderController.getOrderById);
  *   post:
  *     summary: Créer une nouvelle commande
  *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +83,7 @@ orderRouter.get("/:id", orderController.getOrderById);
  *       400:
  *         description: Données invalides
  */
-orderRouter.post("/", orderController.createOrder);
+orderRouter.post("/", verifyToken, orderController.createOrder);
 
 /**
  * @swagger
@@ -84,6 +91,8 @@ orderRouter.post("/", orderController.createOrder);
  *   put:
  *     summary: Modifier une commande
  *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -107,7 +116,7 @@ orderRouter.post("/", orderController.createOrder);
  *       404:
  *         description: Commande non trouvée
  */
-orderRouter.put("/:id", orderController.updateOrder);
+orderRouter.put("/:id", verifyToken, orderController.updateOrder);
 
 /**
  * @swagger
@@ -115,6 +124,8 @@ orderRouter.put("/:id", orderController.updateOrder);
  *   delete:
  *     summary: Supprimer une commande
  *     tags: [Orders]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -128,6 +139,6 @@ orderRouter.put("/:id", orderController.updateOrder);
  *       404:
  *         description: Commande non trouvée
  */
-orderRouter.delete("/:id", orderController.deleteOrder);
+orderRouter.delete("/:id", verifyToken, orderController.deleteOrder);
 
 module.exports = orderRouter;

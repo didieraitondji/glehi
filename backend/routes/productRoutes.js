@@ -1,6 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/productController");
 const productRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const productRouter = express.Router();
  *   get:
  *     summary: Obtenir tous les produits
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des produits récupérée avec succès
@@ -27,7 +30,7 @@ const productRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-productRouter.get("/", productController.getAllProducts);
+productRouter.get("/", verifyToken, productController.getAllProducts);
 
 /**
  * @swagger
@@ -35,6 +38,8 @@ productRouter.get("/", productController.getAllProducts);
  *   get:
  *     summary: Obtenir un produit par ID
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +57,7 @@ productRouter.get("/", productController.getAllProducts);
  *       404:
  *         description: Produit non trouvé
  */
-productRouter.get("/:id", productController.getProductById);
+productRouter.get("/:id", verifyToken, productController.getProductById);
 
 /**
  * @swagger
@@ -60,6 +65,8 @@ productRouter.get("/:id", productController.getProductById);
  *   post:
  *     summary: Créer un nouveau produit
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +83,7 @@ productRouter.get("/:id", productController.getProductById);
  *       400:
  *         description: Données invalides
  */
-productRouter.post("/", productController.createProduct);
+productRouter.post("/", verifyToken, productController.createProduct);
 
 /**
  * @swagger
@@ -84,6 +91,8 @@ productRouter.post("/", productController.createProduct);
  *   put:
  *     summary: Modifier un produit
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -107,7 +116,7 @@ productRouter.post("/", productController.createProduct);
  *       404:
  *         description: Produit non trouvé
  */
-productRouter.put("/:id", productController.updateProduct);
+productRouter.put("/:id", verifyToken, productController.updateProduct);
 
 /**
  * @swagger
@@ -115,6 +124,8 @@ productRouter.put("/:id", productController.updateProduct);
  *   delete:
  *     summary: Supprimer un produit
  *     tags: [Products]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -128,6 +139,6 @@ productRouter.put("/:id", productController.updateProduct);
  *       404:
  *         description: Produit non trouvé
  */
-productRouter.delete("/:id", productController.deleteProduct);
+productRouter.delete("/:id", verifyToken, productController.deleteProduct);
 
 module.exports = productRouter;

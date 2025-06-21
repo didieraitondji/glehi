@@ -1,6 +1,7 @@
 const express = require("express");
 const notificationController = require("../controllers/notificationController");
 const notificationRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const notificationRouter = express.Router();
  *   get:
  *     summary: Obtenir toutes les notifications
  *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des notifications récupérée avec succès
@@ -27,7 +30,11 @@ const notificationRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-notificationRouter.get("/", notificationController.getAllNotifications);
+notificationRouter.get(
+  "/",
+  verifyToken,
+  notificationController.getAllNotifications
+);
 
 /**
  * @swagger
@@ -35,6 +42,8 @@ notificationRouter.get("/", notificationController.getAllNotifications);
  *   get:
  *     summary: Obtenir une notification par ID
  *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +61,11 @@ notificationRouter.get("/", notificationController.getAllNotifications);
  *       404:
  *         description: Notification non trouvée
  */
-notificationRouter.get("/:id", notificationController.getNotificationById);
+notificationRouter.get(
+  "/:id",
+  verifyToken,
+  notificationController.getNotificationById
+);
 
 /**
  * @swagger
@@ -60,6 +73,8 @@ notificationRouter.get("/:id", notificationController.getNotificationById);
  *   post:
  *     summary: Créer une nouvelle notification
  *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +91,11 @@ notificationRouter.get("/:id", notificationController.getNotificationById);
  *       400:
  *         description: Données invalides
  */
-notificationRouter.post("/", notificationController.createNotification);
+notificationRouter.post(
+  "/",
+  verifyToken,
+  notificationController.createNotification
+);
 
 /**
  * @swagger
@@ -84,6 +103,8 @@ notificationRouter.post("/", notificationController.createNotification);
  *   put:
  *     summary: Marquer une notification comme lue
  *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -101,7 +122,7 @@ notificationRouter.post("/", notificationController.createNotification);
  *       404:
  *         description: Notification non trouvée
  */
-notificationRouter.put("/:id", notificationController.markAsRead);
+notificationRouter.put("/:id", verifyToken, notificationController.markAsRead);
 
 /**
  * @swagger
@@ -109,6 +130,8 @@ notificationRouter.put("/:id", notificationController.markAsRead);
  *   delete:
  *     summary: Supprimer une notification
  *     tags: [Notifications]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -122,6 +145,10 @@ notificationRouter.put("/:id", notificationController.markAsRead);
  *       404:
  *         description: Notification non trouvée
  */
-notificationRouter.delete("/:id", notificationController.deleteNotification);
+notificationRouter.delete(
+  "/:id",
+  verifyToken,
+  notificationController.deleteNotification
+);
 
 module.exports = notificationRouter;

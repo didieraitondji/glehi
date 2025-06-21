@@ -1,6 +1,7 @@
 const express = require("express");
 const categoryController = require("../controllers/categoryController");
 const categoryRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const categoryRouter = express.Router();
  *   get:
  *     summary: Obtenir toutes les catégories
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des catégories récupérée avec succès
@@ -27,7 +30,7 @@ const categoryRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-categoryRouter.get("/", categoryController.getAllCategories);
+categoryRouter.get("/", verifyToken, categoryController.getAllCategories);
 
 /**
  * @swagger
@@ -35,6 +38,8 @@ categoryRouter.get("/", categoryController.getAllCategories);
  *   get:
  *     summary: Obtenir une catégorie par ID
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +57,7 @@ categoryRouter.get("/", categoryController.getAllCategories);
  *       404:
  *         description: Catégorie non trouvée
  */
-categoryRouter.get("/:id", categoryController.getCategoryById);
+categoryRouter.get("/:id", verifyToken, categoryController.getCategoryById);
 
 /**
  * @swagger
@@ -60,6 +65,8 @@ categoryRouter.get("/:id", categoryController.getCategoryById);
  *   post:
  *     summary: Créer une nouvelle catégorie
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +83,7 @@ categoryRouter.get("/:id", categoryController.getCategoryById);
  *       400:
  *         description: Données invalides
  */
-categoryRouter.post("/", categoryController.createCategory);
+categoryRouter.post("/", verifyToken, categoryController.createCategory);
 
 /**
  * @swagger
@@ -84,6 +91,8 @@ categoryRouter.post("/", categoryController.createCategory);
  *   put:
  *     summary: Modifier une catégorie
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -107,7 +116,7 @@ categoryRouter.post("/", categoryController.createCategory);
  *       404:
  *         description: Catégorie non trouvée
  */
-categoryRouter.put("/:id", categoryController.updateCategory);
+categoryRouter.put("/:id", verifyToken, categoryController.updateCategory);
 
 /**
  * @swagger
@@ -115,6 +124,8 @@ categoryRouter.put("/:id", categoryController.updateCategory);
  *   delete:
  *     summary: Supprimer une catégorie
  *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -128,6 +139,6 @@ categoryRouter.put("/:id", categoryController.updateCategory);
  *       404:
  *         description: Catégorie non trouvée
  */
-categoryRouter.delete("/:id", categoryController.deleteCategory);
+categoryRouter.delete("/:id", verifyToken, categoryController.deleteCategory);
 
 module.exports = categoryRouter;

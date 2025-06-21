@@ -1,6 +1,8 @@
 const express = require("express");
 const userController = require("../controllers/userController");
 const router = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
+const authorizeRole = require("../middlewares/authorizeRole");
 
 /**
  * @swagger
@@ -15,6 +17,8 @@ const router = express.Router();
  *   get:
  *     summary: Obtenir tous les utilisateurs
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des utilisateurs récupérée avec succès
@@ -27,7 +31,7 @@ const router = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-router.get("/", userController.getAllUsers);
+router.get("/", verifyToken, userController.getAllUsers);
 
 /**
  * @swagger
@@ -35,6 +39,8 @@ router.get("/", userController.getAllUsers);
  *   get:
  *     summary: Obtenir un utilisateur par ID
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,31 +58,7 @@ router.get("/", userController.getAllUsers);
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.get("/:id", userController.getUserById);
-
-/**
- * @swagger
- * /api/users:
- *   post:
- *     summary: Créer un nouvel utilisateur
- *     tags: [Users]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/User'
- *     responses:
- *       201:
- *         description: Utilisateur créé avec succès
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/User'
- *       400:
- *         description: Données invalides
- */
-router.post("/", userController.createUser);
+router.get("/:id", verifyToken, userController.getUserById);
 
 /**
  * @swagger
@@ -84,6 +66,8 @@ router.post("/", userController.createUser);
  *   put:
  *     summary: Modifier un utilisateur
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -107,7 +91,7 @@ router.post("/", userController.createUser);
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.put("/:id", userController.updateUser);
+router.put("/:id", verifyToken, userController.updateUser);
 
 /**
  * @swagger
@@ -115,6 +99,8 @@ router.put("/:id", userController.updateUser);
  *   delete:
  *     summary: Supprimer un utilisateur
  *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -128,6 +114,11 @@ router.put("/:id", userController.updateUser);
  *       404:
  *         description: Utilisateur non trouvé
  */
-router.delete("/:id", userController.deleteUser);
+router.delete(
+  "/:id",
+  verifyToken,
+  authorizeRole("admin"),
+  userController.deleteUser
+);
 
 module.exports = router;

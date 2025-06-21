@@ -1,6 +1,7 @@
 const express = require("express");
 const messageController = require("../controllers/messageController");
 const messageRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const messageRouter = express.Router();
  *   get:
  *     summary: Obtenir tous les messages
  *     tags: [Messages]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des messages récupérée avec succès
@@ -27,7 +30,7 @@ const messageRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-messageRouter.get("/", messageController.getAllMessages);
+messageRouter.get("/", verifyToken, messageController.getAllMessages);
 
 /**
  * @swagger
@@ -35,6 +38,8 @@ messageRouter.get("/", messageController.getAllMessages);
  *   get:
  *     summary: Obtenir un message par ID
  *     tags: [Messages]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +57,7 @@ messageRouter.get("/", messageController.getAllMessages);
  *       404:
  *         description: Message non trouvé
  */
-messageRouter.get("/:id", messageController.getMessageById);
+messageRouter.get("/:id", verifyToken, messageController.getMessageById);
 
 /**
  * @swagger
@@ -60,6 +65,8 @@ messageRouter.get("/:id", messageController.getMessageById);
  *   post:
  *     summary: Créer un nouveau message
  *     tags: [Messages]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +83,7 @@ messageRouter.get("/:id", messageController.getMessageById);
  *       400:
  *         description: Données invalides
  */
-messageRouter.post("/", messageController.createMessage);
+messageRouter.post("/", verifyToken, messageController.createMessage);
 
 /**
  * @swagger
@@ -84,6 +91,8 @@ messageRouter.post("/", messageController.createMessage);
  *   delete:
  *     summary: Supprimer un message
  *     tags: [Messages]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -97,6 +106,6 @@ messageRouter.post("/", messageController.createMessage);
  *       404:
  *         description: Message non trouvé
  */
-messageRouter.delete("/:id", messageController.deleteMessage);
+messageRouter.delete("/:id", verifyToken, messageController.deleteMessage);
 
 module.exports = messageRouter;

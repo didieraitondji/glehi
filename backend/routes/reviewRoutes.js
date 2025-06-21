@@ -1,6 +1,7 @@
 const express = require("express");
 const reviewController = require("../controllers/reviewController");
 const reviewRouter = express.Router();
+const verifyToken = require("../middlewares/verifyToken");
 
 /**
  * @swagger
@@ -15,6 +16,8 @@ const reviewRouter = express.Router();
  *   get:
  *     summary: Obtenir tous les avis
  *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des avis récupérée avec succès
@@ -27,7 +30,7 @@ const reviewRouter = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-reviewRouter.get("/", reviewController.getAllReviews);
+reviewRouter.get("/", verifyToken, reviewController.getAllReviews);
 
 /**
  * @swagger
@@ -35,6 +38,8 @@ reviewRouter.get("/", reviewController.getAllReviews);
  *   get:
  *     summary: Obtenir un avis par ID
  *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -52,7 +57,7 @@ reviewRouter.get("/", reviewController.getAllReviews);
  *       404:
  *         description: Avis non trouvé
  */
-reviewRouter.get("/:id", reviewController.getReviewById);
+reviewRouter.get("/:id", verifyToken, reviewController.getReviewById);
 
 /**
  * @swagger
@@ -60,6 +65,8 @@ reviewRouter.get("/:id", reviewController.getReviewById);
  *   post:
  *     summary: Créer un nouvel avis
  *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -76,7 +83,7 @@ reviewRouter.get("/:id", reviewController.getReviewById);
  *       400:
  *         description: Données invalides
  */
-reviewRouter.post("/", reviewController.createReview);
+reviewRouter.post("/", verifyToken, reviewController.createReview);
 
 /**
  * @swagger
@@ -84,6 +91,8 @@ reviewRouter.post("/", reviewController.createReview);
  *   delete:
  *     summary: Supprimer un avis
  *     tags: [Reviews]
+ *     security:
+ *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
@@ -97,6 +106,6 @@ reviewRouter.post("/", reviewController.createReview);
  *       404:
  *         description: Avis non trouvé
  */
-reviewRouter.delete("/:id", reviewController.deleteReview);
+reviewRouter.delete("/:id", verifyToken, reviewController.deleteReview);
 
 module.exports = reviewRouter;
