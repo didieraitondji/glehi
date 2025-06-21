@@ -56,3 +56,20 @@ exports.deleteOrder = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+// Obtenir les 10 dernières commandes d'un acheteur
+exports.getLast10OrdersByBuyer = async (req, res) => {
+  try {
+    const buyerId = req.params.buyerId;
+
+    const orders = await Order.find({ buyerId })
+      .sort({ createdAt: -1 }) // tri décroissant par date
+      .limit(10) // limite à 10 résultats
+      .populate("productId") // optionnel : remplir infos produit
+      .populate("sellerId"); // optionnel : remplir infos vendeur
+
+    res.json(orders);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

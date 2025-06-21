@@ -141,4 +141,31 @@ orderRouter.put("/:id", verifyToken, orderController.updateOrder);
  */
 orderRouter.delete("/:id", verifyToken, orderController.deleteOrder);
 
+/**
+ * @swagger
+ * /api/orders/latest/{buyerId}:
+ *   get:
+ *     summary: Récupérer les 10 dernières commandes d'un client
+ *     tags: [Orders]
+ *     parameters:
+ *       - in: path
+ *         name: buyerId
+ *         required: true
+ *         description: ID du client (buyer)
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Liste des 10 dernières commandes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Order'
+ *       500:
+ *         description: Erreur serveur
+ */
+orderRouter.get("/latest/:buyerId", verifyToken, orderController.getLast10OrdersByBuyer);
+
 module.exports = orderRouter;
