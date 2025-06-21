@@ -153,4 +153,48 @@ router.delete(
  */
 router.put("/change-password", verifyToken, userController.changePassword);
 
+/**
+ * @swagger
+ * /api/users/nearby:
+ *   get:
+ *     summary: Trouver les producteurs proches d'une position
+ *     tags: [Users]
+ *     parameters:
+ *       - in: query
+ *         name: lat
+ *         required: true
+ *         schema:
+ *           type: number
+ *           format: float
+ *         description: Latitude
+ *       - in: query
+ *         name: lng
+ *         required: true
+ *         schema:
+ *           type: number
+ *           format: float
+ *         description: Longitude
+ *       - in: query
+ *         name: maxDistanceKm
+ *         required: false
+ *         schema:
+ *           type: number
+ *           default: 10
+ *         description: Rayon maximum de recherche en kilomètres (par défaut 10 km)
+ *     responses:
+ *       200:
+ *         description: Liste des producteurs proches
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: "#/components/schemas/User"
+ *       400:
+ *         description: Paramètres invalides
+ *       500:
+ *         description: Erreur serveur
+ */
+router.get("/nearby", userController.findNearbyFarmers);
+
 module.exports = router;

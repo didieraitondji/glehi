@@ -301,6 +301,50 @@ const options = {
           },
         },
       },
+      "/api/users/nearby": {
+        get: {
+          tags: ["Users"],
+          summary: "Trouver les producteurs proches d'une position",
+          parameters: [
+            {
+              name: "lat",
+              in: "query",
+              description: "Latitude",
+              required: true,
+              schema: { type: "number", format: "float" },
+            },
+            {
+              name: "lng",
+              in: "query",
+              description: "Longitude",
+              required: true,
+              schema: { type: "number", format: "float" },
+            },
+            {
+              name: "maxDistanceKm",
+              in: "query",
+              description: "Rayon max en kilomètres (par défaut 10)",
+              required: false,
+              schema: { type: "number", default: 10 },
+            },
+          ],
+          responses: {
+            200: {
+              description: "Liste des producteurs proches",
+              content: {
+                "application/json": {
+                  schema: {
+                    type: "array",
+                    items: { $ref: "#/components/schemas/User" },
+                  },
+                },
+              },
+            },
+            400: { description: "Paramètres invalides" },
+            500: { description: "Erreur serveur" },
+          },
+        },
+      },
 
       // ... ici tu peux garder toutes les autres routes que tu avais déjà ...
     },
