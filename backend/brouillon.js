@@ -34,19 +34,7 @@ const options = {
               enum: ["farmer", "buyer", "admin"],
               example: "farmer",
             },
-            location: {
-              type: "object",
-              properties: {
-                type: { type: "string", example: "Point", enum: ["Point"] },
-                coordinates: {
-                  type: "array",
-                  items: { type: "number" },
-                  example: [2.45, 6.4],
-                  description: "[longitude, latitude]",
-                },
-              },
-            },
-            address: { type: "string", example: "Cotonou, Bénin" },
+            location: { type: "string", example: "Cotonou" },
             createdAt: { type: "string", format: "date-time" },
             updatedAt: { type: "string", format: "date-time" },
           },
@@ -62,27 +50,14 @@ const options = {
             quantity: { type: "number", example: 10 },
             price: { type: "number", example: 25000 },
             categoryId: { type: "string", example: "60d0fe4f5311236168a109ca" },
-            images: { type: "string", example: "mais.jpg" },
+            images: { type: "string", example: "maïs.jpg" },
             available: { type: "boolean", example: true },
             isFavorite: { type: "boolean", example: false },
             discount: { type: "number", example: 5 },
             unit: { type: "string", example: "kg" },
             sellerId: { type: "string", example: "60d0fe4f5311236168a109cb" },
-            location: {
-              type: "object",
-              properties: {
-                type: { type: "string", example: "Point", enum: ["Point"] },
-                coordinates: {
-                  type: "array",
-                  items: { type: "number" },
-                  example: [2.45, 6.4],
-                  description: "[longitude, latitude]",
-                },
-              },
-            },
-            address: { type: "string", example: "Abomey-Calavi" },
+            location: { type: "string", example: "Abomey-Calavi" },
             createdAt: { type: "string", format: "date-time" },
-            updatedAt: { type: "string", format: "date-time" },
           },
         },
         Category: {
@@ -188,18 +163,7 @@ const options = {
               type: "string",
               enum: ["farmer", "buyer", "admin"],
             },
-            location: {
-              type: "object",
-              properties: {
-                type: { type: "string", example: "Point", enum: ["Point"] },
-                coordinates: {
-                  type: "array",
-                  items: { type: "number" },
-                  example: [2.45, 6.4],
-                },
-              },
-            },
-            address: { type: "string" },
+            location: { type: "string" },
           },
         },
       },
@@ -209,101 +173,6 @@ const options = {
         bearerAuth: [],
       },
     ],
-    paths: {
-      "/api/products/search": {
-        get: {
-          tags: ["Products"],
-          summary: "Rechercher des produits avec filtres et géolocalisation",
-          parameters: [
-            {
-              name: "title",
-              in: "query",
-              description:
-                "Recherche par nom de produit (partiel, insensible à la casse)",
-              required: false,
-              schema: { type: "string" },
-            },
-            {
-              name: "categoryId",
-              in: "query",
-              description: "Filtrer par ID de catégorie",
-              required: false,
-              schema: { type: "string" },
-            },
-            {
-              name: "minPrice",
-              in: "query",
-              description: "Prix minimum",
-              required: false,
-              schema: { type: "number" },
-            },
-            {
-              name: "maxPrice",
-              in: "query",
-              description: "Prix maximum",
-              required: false,
-              schema: { type: "number" },
-            },
-            {
-              name: "available",
-              in: "query",
-              description: "Disponibilité (true/false)",
-              required: false,
-              schema: { type: "boolean" },
-            },
-            {
-              name: "lat",
-              in: "query",
-              description: "Latitude pour recherche géospatiale",
-              required: false,
-              schema: { type: "number", format: "float" },
-            },
-            {
-              name: "lng",
-              in: "query",
-              description: "Longitude pour recherche géospatiale",
-              required: false,
-              schema: { type: "number", format: "float" },
-            },
-            {
-              name: "radiusKm",
-              in: "query",
-              description: "Rayon de recherche en kilomètres",
-              required: false,
-              schema: { type: "number", format: "float" },
-            },
-          ],
-          responses: {
-            200: {
-              description: "Liste des produits correspondant aux filtres",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "array",
-                    items: { $ref: "#/components/schemas/Product" },
-                  },
-                },
-              },
-            },
-            500: {
-              description: "Erreur serveur",
-              content: {
-                "application/json": {
-                  schema: {
-                    type: "object",
-                    properties: {
-                      error: { type: "string" },
-                    },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-
-      // ... ici tu peux garder toutes les autres routes que tu avais déjà ...
-    },
   },
   apis: ["./routes/*.js"],
 };

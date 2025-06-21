@@ -1,6 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/productController");
 const productRouter = express.Router();
+const searchProducts = require("../controllers/searchProductsController");
 const verifyToken = require("../middlewares/verifyToken");
 
 /**
@@ -140,5 +141,30 @@ productRouter.put("/:id", verifyToken, productController.updateProduct);
  *         description: Produit non trouvé
  */
 productRouter.delete("/:id", verifyToken, productController.deleteProduct);
+
+/**
+ * @swagger
+ * /api/products/search:
+ *   get:
+ *     summary: Rechercher des produits
+ *     tags: [Products]
+ *     parameters:
+ *       - in: query
+ *         name: query
+ *         required: true
+ *         description: Terme de recherche pour les produits
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Produits trouvés
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ */
+productRouter.get("/search", searchProducts.searchProducts);
 
 module.exports = productRouter;
