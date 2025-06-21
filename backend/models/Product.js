@@ -1,20 +1,50 @@
-// Product.js
+// models/Product.js
 const mongoose = require("mongoose");
 
 const ProductSchema = new mongoose.Schema({
-  title: String,
-  description: String,
-  quantity: Number,
-  price: Number,
+  title: { type: String },
+  description: { type: String },
+  quantity: { type: Number },
+  price: { type: Number },
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
-  images: String,
-  available: Boolean,
+  images: { type: String },
+  available: { type: Boolean, default: true },
   isFavorite: { type: Boolean, default: false },
   discount: { type: Number, default: 0 },
-  unit: String,
+  unit: { type: String },
   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  location: String,
-  createdAt: { type: Date, default: Date.now },
+
+  // Localisation géographique
+  location: {
+    type: {
+      type: String,
+      enum: ["Point"],
+      default: "Point",
+    },
+    coordinates: {
+      type: [Number], // [longitude, latitude]
+      default: undefined,
+    },
+  },
+
+  // Adresse lisible (via reverse geocoding)
+  address: {
+    type: String,
+    default: "",
+  },
+
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
+
+// Index géospatial pour les recherches
+ProductSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("Product", ProductSchema);
