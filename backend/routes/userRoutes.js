@@ -17,8 +17,6 @@ const authorizeRole = require("../middlewares/authorizeRole");
  *   get:
  *     summary: Obtenir tous les utilisateurs
  *     tags: [Users]
- *     security:
- *       - bearerAuth: []
  *     responses:
  *       200:
  *         description: Liste des utilisateurs récupérée avec succès
@@ -31,7 +29,7 @@ const authorizeRole = require("../middlewares/authorizeRole");
  *       500:
  *         description: Erreur serveur
  */
-router.get("/", verifyToken, userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 
 /**
  * @swagger
