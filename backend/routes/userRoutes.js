@@ -121,4 +121,38 @@ router.delete(
   userController.deleteUser
 );
 
+/**
+ * @swagger
+ * /api/users/change-password:
+ *   put:
+ *     summary: Modifier son mot de passe (utilisateur connecté)
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - oldPassword
+ *               - newPassword
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *               newPassword:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Mot de passe modifié avec succès
+ *       400:
+ *         description: Données manquantes ou invalides
+ *       401:
+ *         description: Ancien mot de passe incorrect
+ *       404:
+ *         description: Utilisateur non trouvé
+ */
+router.put("/change-password", verifyToken, userController.changePassword);
+
 module.exports = router;
