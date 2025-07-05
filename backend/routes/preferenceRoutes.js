@@ -2,14 +2,75 @@ const express = require("express");
 const router = express.Router();
 const Preference = require("../models/Preference");
 
-// Ajouter ou mettre à jour la liste de préférences
-// documentation swagger
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Preference:
+ *       type: object
+ *       properties:
+ *         _id:
+ *           type: string
+ *           example: 66a49ee3e8b3dbb9fbc2f279
+ *         user:
+ *           type: string
+ *           example: 66a49e91e8b3dbb9fbc2f278
+ *         list:
+ *           type: array
+ *           items:
+ *             type: string
+ *           example: ["maïs", "riz", "igname"]
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
+
 /**
  * @swagger
  * /api/preferences:
  *   post:
- *     summary: Ajouter ou mettre à jour la liste de préférences
+ *     summary: Ajouter ou mettre à jour la liste de préférences d'un utilisateur
  *     tags: [Preferences]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - userId
+ *               - list
+ *             properties:
+ *               userId:
+ *                 type: string
+ *                 description: ID de l'utilisateur
+ *                 example: 66a49e91e8b3dbb9fbc2f278
+ *               list:
+ *                 type: array
+ *                 items:
+ *                   type: string
+ *                 description: Liste des préférences
+ *                 example: ["maïs", "riz", "igname"]
+ *     responses:
+ *       200:
+ *         description: Préférences mises à jour
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Préférences mises à jour
+ *                 preferences:
+ *                   $ref: '#/components/schemas/Preference'
+ *       400:
+ *         description: Liste invalide
+ *       500:
+ *         description: Erreur serveur
  */
 router.post("/", async (req, res) => {
   try {
@@ -39,13 +100,30 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Obtenir la liste des préférences d’un utilisateur
 /**
  * @swagger
  * /api/preferences/{userId}:
  *   get:
- *     summary: Obtenir la liste des préférences d’un utilisateur
+ *     summary: Récupérer les préférences d’un utilisateur
  *     tags: [Preferences]
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID de l'utilisateur
+ *     responses:
+ *       200:
+ *         description: Préférences récupérées
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Preference'
+ *       404:
+ *         description: Préférences non trouvées
+ *       500:
+ *         description: Erreur serveur
  */
 router.get("/:userId", async (req, res) => {
   try {
