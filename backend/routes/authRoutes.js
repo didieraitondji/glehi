@@ -74,4 +74,7 @@ router.post("/register", authController.register);
  */
 router.post("/login", authController.login);
 
+// route pour vérifier le token JWT
+router.get("/verify", authController.verifyToken);
+
 module.exports = router;
