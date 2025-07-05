@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require("cors");
+
 const mongoose = require("mongoose");
 const path = require("path");
 const swaggerUi = require("swagger-ui-express");
@@ -8,6 +10,7 @@ const app = express();
 
 // === Middleware global ===
 app.use(express.json());
+app.use(cors()); // Permettre les requêtes CORS
 
 // === Documentation Swagger ===
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -23,7 +26,6 @@ const transactionRoutes = require("./routes/transactionRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const authRoutes = require("./routes/authRoutes"); // 🔥 nouvelle route
 const preferenceRoutes = require("./routes/preferenceRoutes");
-
 
 // === Utilisation des routes ===
 app.use("/api/users", userRoutes);
