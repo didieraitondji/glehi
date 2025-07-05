@@ -50,7 +50,12 @@ exports.register = async (req, res) => {
     });
 
     await newUser.save();
-    res.status(201).json({ message: "Utilisateur créé avec succès" });
+
+    // ✅ Retourne l'ID de l'utilisateur créé
+    res.status(201).json({
+      message: "Utilisateur créé avec succès",
+      userId: newUser._id,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
