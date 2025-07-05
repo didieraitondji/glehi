@@ -22,7 +22,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "secretKey";
 
 exports.register = async (req, res) => {
   try {
-    const { firstName, lastName, phone, password, role } = req.body;
+    const { firstName, lastName, phone, password, role, location, address } =
+      req.body;
 
     const existingUser = await User.findOne({ phone });
     if (existingUser)
