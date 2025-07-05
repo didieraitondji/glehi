@@ -22,6 +22,8 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const authRoutes = require("./routes/authRoutes"); // 🔥 nouvelle route
+const preferenceRoutes = require("./routes/preferences");
+
 
 // === Utilisation des routes ===
 app.use("/api/users", userRoutes);
@@ -33,6 +35,7 @@ app.use("/api/categories", categoryRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/auth", authRoutes); // 🔥 ajout ici
+app.use("/api/preferences", preferenceRoutes);
 
 // === Route par défaut ===
 app.get("/", (req, res) => {
