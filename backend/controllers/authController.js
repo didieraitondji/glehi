@@ -25,34 +25,52 @@ exports.register = async (req, res) => {
     const { firstName, lastName, phone, password, role, location, address } =
       req.body;
 
+    // Vérifie si le téléphone existe déjà
     const existingUser = await User.findOne({ phone });
-    if (existingUser)
+    if (existingUser) {
       return res.status(400).json({ message: "Utilisateur déjà existant" });
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    let locationData;
-    if (location?.coordinates?.length === 2) {
-      locationData = {
-        type: "Point",
-        coordinates: location.coordinates,
-      };
     }
 
-    const newUser = new User({
+    // Hash du mot de passe
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Prépare l'objet utilisateur
+    const userData = {
       firstName,
       lastName,
       phone,
       password: hashedPassword,
       role,
-      ...(locationData && { location: locationData }),
-      ...(address && { address }),
-    });
+    };
 
+    // Ajoute les coordonnées si elles sont valides
+    if (
+      location &&
+      Array.isArray(location.coordinates) &&
+      location.coordinates.length === 2 &&
+      typeof location.coordinates[0] === "number" &&
+      typeof location.coordinates[1] === "number"
+    ) {
+      userData.location = {
+        type: "Point",
+        coordinates: location.coordinates,
+      };
+    }
+
+    // Ajoute l'adresse si elle est fournie
+    if (address) {
+      userData.address = address;
+    }
+
+    // Enregistre l'utilisateur
+    const newUser = new User(userData);
     await newUser.save();
-    res
-      .status(201)
-      .json({ message: "Utilisateur créé avec succès", userId: newUser._id });
+
+    // Réponse avec succès + ID
+    res.status(201).json({
+      message: "Utilisateur créé avec succès",
+      userId: newUser._id,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
