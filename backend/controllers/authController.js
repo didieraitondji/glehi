@@ -36,8 +36,8 @@ exports.register = async (req, res) => {
       phone,
       password: hashedPassword,
       role,
-      address,
       ...(location?.coordinates?.length === 2 && { location }),
+      ...(address && { address }),
     });
 
     await newUser.save();
