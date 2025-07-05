@@ -1,8 +1,24 @@
+// authController.js
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 const JWT_SECRET = process.env.JWT_SECRET || "secretKey";
+
+/**
+ * @description
+ * Inscription d'un nouvel utilisateur.
+ *
+ * @param {Object} req.body - Les informations de l'utilisateur.
+ * @param {string} req.body.firstName - Le prénom de l'utilisateur.
+ * @param {string} req.body.lastName - Le nom de l'utilisateur.
+ * @param {string} req.body.phone - Le téléphone de l'utilisateur.
+ * @param {string} req.body.password - Le mot de passe de l'utilisateur.
+ * @param {string} req.body.role - Le r le de l'utilisateur.
+ *
+ * @returns {Object} - Une réponse JSON avec un message de confirmation.
+ * @throws {Error} - Si une erreur survient durant la création de l'utilisateur.
+ */
 
 exports.register = async (req, res) => {
   try {
@@ -13,12 +29,15 @@ exports.register = async (req, res) => {
       return res.status(400).json({ message: "Utilisateur déjà existant" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
+
     const newUser = new User({
       firstName,
       lastName,
       phone,
       password: hashedPassword,
       role,
+      address,
+      ...(location?.coordinates?.length === 2 && { location }),
     });
 
     await newUser.save();
