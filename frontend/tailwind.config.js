@@ -1,0 +1,50 @@
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: ["./src/**/*.{astro,html,js,jsx,ts,tsx,vue,svelte}"],
+  theme: {
+    extend: {
+      colors: {
+        // Couleurs déjà présentes dans ton ancien fichier
+        "custom-green-light": "#a3b18a",
+        "custom-green-lighter": "#dad7cd",
+        "custom-green": "#22c55e",
+        "custom-green-bright": "#4ade80",
+        "custom-green-dark": "#365314",
+        "custom-green-medium": "#588157",
+        "custom-green-kaki": "#4a5d23",
+        "custom-shadow-green-light": "rgba(34, 197, 94, 0.3)",
+        "custom-shadow-green-strong": "rgba(34, 197, 94, 0.4)",
+        "custom-shadow-black-light": "rgba(0, 0, 0, 0.2)",
+        "custom-shadow-black-lighter": "rgba(0, 0, 0, 0.1)",
+        "custom-white-transparent": "rgba(255, 255, 255, 0.9)",
+        "custom-white-faint": "rgba(163, 177, 138, 0.2)",
+
+        // Nouvelles couleurs relevées dans ton banner
+        "glehi-dark": "#2d5016",
+        "glehi-medium": "#4a7c59",
+        "glehi-kaki": "#6b8e23",
+        "glehi-light1": "#e8f5e8",
+        "glehi-light2": "#d4f1d4",
+        "glehi-lightest": "#f0f8f0",
+        "glehi-grayblue": "#4a5568",
+        "glehi-graymid": "#666666",
+        "glehi-shadowdark": "rgba(45, 80, 22, 0.3)",
+        "glehi-shadowlight": "rgba(45, 80, 22, 0.4)",
+        "glehi-blacklight1": "rgba(0, 0, 0, 0.1)",
+        "glehi-blacklight3": "rgba(0, 0, 0, 0.3)",
+        "glehi-greenlight1": "rgba(74, 124, 89, 0.1)",
+        "glehi-greenlight2": "rgba(74, 124, 89, 0.2)",
+        "glehi-greenlight3": "rgba(74, 124, 89, 0.3)",
+        "glehi-greenlight4": "rgba(107, 142, 35, 0.1)",
+        "glehi-greenlight5": "rgba(107, 142, 35, 0.2)",
+        "glehi-greenlight6": "rgba(107, 142, 35, 0.3)",
+        "glehi-greenlight7": "rgba(85, 107, 47, 0.3)",
+        "glehi-greenlight8": "rgba(34, 139, 34, 0.4)",
+        "glehi-greenlight9": "rgba(50, 205, 50, 0.2)",
+        "glehi-greenlight10": "rgba(154, 205, 50, 0.4)",
+        "glehi-greenlight11": "rgba(124, 252, 0, 0.2)",
+      },
+    },
+  },
+  plugins: [],
+};
