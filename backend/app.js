@@ -22,7 +22,7 @@ const categoryRoutes = require("./routes/categoryRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const authRoutes = require("./routes/authRoutes"); // 🔥 nouvelle route
-const preferenceRoutes = require("./routes/preferences");
+const preferenceRoutes = require("./routes/preferenceRoutes");
 
 
 // === Utilisation des routes ===
