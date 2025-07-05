@@ -47,6 +47,17 @@ exports.register = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+/**
+ * @description
+ * Connexion d'un utilisateur existant.
+ *
+ * @param {Object} req.body - Les informations de connexion de l'utilisateur.
+ * @param {string} req.body.phone - Le téléphone de l'utilisateur.
+ * @param {string} req.body.password - Le mot de passe de l'utilisateur.
+ *
+ * @returns {Object} - Une réponse JSON avec un token JWT et les informations de l'utilisateur.
+ * @throws {Error} - Si une erreur survient durant la connexion de l'utilisateur.
+ */
 
 exports.login = async (req, res) => {
   try {
