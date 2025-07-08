@@ -15,7 +15,7 @@ exports.getAllUsers = async (req, res) => {
 // Obtenir un utilisateur par ID MongoDB
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.id);
+    const user = await User.findById({ userId: req.params.id });
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
     res.json(user);
   } catch (err) {
