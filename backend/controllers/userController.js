@@ -110,21 +110,30 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Changer le mot de passe
+// Modifier le mot de passe
 exports.changePassword = async (req, res) => {
   try {
-    const userId = req.user.userId; // JWT injecte userId
+    const userId = req.user.userId;
+
+    console.log("🔐 userId extrait du token :", userId);
+
     const { oldPassword, newPassword } = req.body;
 
     if (!oldPassword || !newPassword) {
+      console.log("⛔ Champs manquants :", { oldPassword, newPassword });
       return res
         .status(400)
         .json({ error: "Les deux mots de passe sont requis" });
     }
 
     const user = await User.findOne({ userId });
-    if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
 
+    if (!user) {
+      console.log("❌ Aucun utilisateur trouvé avec userId :", userId);
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
+
+    // le reste reste inchangé...
     const isMatch = await bcrypt.compare(oldPassword, user.password);
     if (!isMatch) {
       return res.status(401).json({ error: "Ancien mot de passe incorrect" });
@@ -135,6 +144,7 @@ exports.changePassword = async (req, res) => {
 
     res.json({ message: "Mot de passe modifié avec succès" });
   } catch (err) {
+    console.error("💥 Erreur dans changePassword :", err);
     res.status(500).json({ error: err.message });
   }
 };
