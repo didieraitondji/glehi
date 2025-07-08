@@ -73,13 +73,14 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Mettre à jour un utilisateur via userId
+// Mettre à jour les données d'un utilisateur via userId
 exports.updateUser = async (req, res) => {
   try {
     const updates = { ...req.body };
 
-    if (updates.password) {
-      updates.password = await bcrypt.hash(updates.password, 10);
+    // Empêcher toute mise à jour directe du mot de passe ici
+    if ("password" in updates) {
+      delete updates.password;
     }
 
     const user = await User.findOneAndUpdate(
@@ -88,7 +89,9 @@ exports.updateUser = async (req, res) => {
       { new: true }
     );
 
-    if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
 
     res.json(user);
   } catch (err) {
