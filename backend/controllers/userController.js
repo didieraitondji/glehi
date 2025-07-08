@@ -1,4 +1,3 @@
-// userController.js
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 
@@ -12,10 +11,10 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// Obtenir un utilisateur par ID MongoDB
+// Obtenir un utilisateur par son userId (UUID)
 exports.getUserById = async (req, res) => {
   try {
-    const user = await User.findById({ userId: req.params.id });
+    const user = await User.findOne({ userId: req.params.id });
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
     res.json(user);
   } catch (err) {
@@ -39,12 +38,12 @@ exports.createUser = async (req, res) => {
       role,
     } = req.body;
 
-    // Vérifier champs obligatoires
+    // Vérification des champs obligatoires
     if (!firstname || !lastname || !phone || !password || !username) {
       return res.status(400).json({ error: "Champs obligatoires manquants" });
     }
 
-    // Vérifier si username ou phone déjà utilisés
+    // Vérifier si username ou téléphone existe déjà
     const existingUser = await User.findOne({ $or: [{ phone }, { username }] });
     if (existingUser) {
       return res
@@ -52,7 +51,6 @@ exports.createUser = async (req, res) => {
         .json({ error: "Numéro ou nom d'utilisateur déjà utilisé" });
     }
 
-    // Hachage du mot de passe
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -75,19 +73,20 @@ exports.createUser = async (req, res) => {
   }
 };
 
-// Mettre à jour un utilisateur
+// Mettre à jour un utilisateur via userId
 exports.updateUser = async (req, res) => {
   try {
     const updates = { ...req.body };
 
-    // Si on met à jour le mot de passe
     if (updates.password) {
       updates.password = await bcrypt.hash(updates.password, 10);
     }
 
-    const user = await User.findByIdAndUpdate(req.params.id, updates, {
-      new: true,
-    });
+    const user = await User.findOneAndUpdate(
+      { userId: req.params.id },
+      updates,
+      { new: true }
+    );
 
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
 
@@ -97,10 +96,10 @@ exports.updateUser = async (req, res) => {
   }
 };
 
-// Supprimer un utilisateur
+// Supprimer un utilisateur via userId
 exports.deleteUser = async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id);
+    const user = await User.findOneAndDelete({ userId: req.params.id });
     if (!user) return res.status(404).json({ error: "Utilisateur non trouvé" });
     res.json({ message: "Utilisateur supprimé" });
   } catch (err) {
@@ -111,7 +110,7 @@ exports.deleteUser = async (req, res) => {
 // Changer le mot de passe
 exports.changePassword = async (req, res) => {
   try {
-    const userId = req.user.userId; // Nécessite un middleware d'auth (JWT par ex)
+    const userId = req.user.userId; // JWT injecte userId
     const { oldPassword, newPassword } = req.body;
 
     if (!oldPassword || !newPassword) {
@@ -137,7 +136,7 @@ exports.changePassword = async (req, res) => {
   }
 };
 
-// Trouver acheteurs proches
+// Trouver les acheteurs proches d'une position
 exports.findNearbyBuyers = async (req, res) => {
   try {
     const { lat, lng, maxDistanceKm = 10 } = req.query;
@@ -165,7 +164,7 @@ exports.findNearbyBuyers = async (req, res) => {
   }
 };
 
-// Trouver producteurs proches
+// Trouver les producteurs proches d'une position
 exports.findNearbyFarmers = async (req, res) => {
   try {
     const { lat, lng, maxDistanceKm = 10 } = req.query;
