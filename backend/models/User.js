@@ -35,9 +35,8 @@ const UserSchema = new mongoose.Schema({
     unique: true,
   },
   producer_type: {
-    type: String,
-    enum: ["individual", "cooperative", "enterprise", "other"],
-    default: "individual",
+    type: [],
+    default: [],
   },
   address: {
     type: String,
