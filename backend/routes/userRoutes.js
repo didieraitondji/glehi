@@ -241,4 +241,58 @@ router.get("/nearby", userController.findNearbyFarmers);
  */
 router.get("/nearby-buyers", userController.findNearbyBuyers);
 
+/**
+ * @swagger
+ * /api/users:
+ *   post:
+ *     summary: Créer un nouvel utilisateur
+ *     tags: [Users]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - firstname
+ *               - lastname
+ *               - phone
+ *               - password
+ *               - username
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *               lastname:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               username:
+ *                 type: string
+ *               profile_image:
+ *                 type: string
+ *               producer_type:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               location:
+ *                 type: object
+ *                 properties:
+ *                   type:
+ *                     type: string
+ *                   coordinates:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *               role:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Utilisateur créé avec succès
+ *       400:
+ *         description: Erreur de validation ou champ manquant
+ */
+router.post("/", userController.createUser);
+
 module.exports = router;

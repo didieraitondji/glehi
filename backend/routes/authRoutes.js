@@ -22,22 +22,41 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             required:
- *               - firstName
- *               - lastName
+ *               - firstname
+ *               - lastname
  *               - phone
  *               - password
- *               - role
+ *               - username
  *             properties:
- *               firstName:
+ *               firstname:
  *                 type: string
- *               lastName:
+ *               lastname:
  *                 type: string
  *               phone:
  *                 type: string
  *               password:
  *                 type: string
+ *               username:
+ *                 type: string
  *               role:
  *                 type: string
+ *                 enum: [buyer, farmer, admin]
+ *               profile_image:
+ *                 type: string
+ *               producer_type:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *               location:
+ *                 type: object
+ *                 properties:
+ *                   type:
+ *                     type: string
+ *                     enum: [Point]
+ *                   coordinates:
+ *                     type: array
+ *                     items:
+ *                       type: number
  *     responses:
  *       201:
  *         description: Utilisateur enregistré
@@ -74,7 +93,20 @@ router.post("/register", authController.register);
  */
 router.post("/login", authController.login);
 
-// route pour vérifier le token JWT
+/**
+ * @swagger
+ * /api/auth/verify:
+ *   get:
+ *     summary: Vérifier le token JWT
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Token valide
+ *       401:
+ *         description: Token manquant ou invalide
+ */
 router.get("/verify", authController.verifyToken);
 
 module.exports = router;

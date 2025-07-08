@@ -1,17 +1,48 @@
+// User.js
 const mongoose = require("mongoose");
+const { v4: uuidv4 } = require("uuid");
 
 const UserSchema = new mongoose.Schema({
-  firstName: { type: String },
-  lastName: { type: String },
-  phone: { type: String },
-  password: { type: String },
-  role: {
+  userId: {
     type: String,
-    enum: ["farmer", "buyer", "admin"],
-    default: "buyer",
+    default: uuidv4,
+    unique: true,
   },
-
-  // Localisation géographique (optionnelle)
+  lastname: {
+    type: String,
+    required: true,
+  },
+  firstname: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  profile_image: {
+    type: String,
+    default: "",
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  producer_type: {
+    type: String,
+    enum: ["individual", "cooperative", "enterprise", "other"],
+    default: "individual",
+  },
+  address: {
+    type: String,
+    default: "",
+  },
   location: {
     type: {
       type: String,
@@ -19,29 +50,30 @@ const UserSchema = new mongoose.Schema({
       default: "Point",
     },
     coordinates: {
-      type: [Number], // [longitude, latitude]
+      type: [Number],
       default: undefined,
     },
   },
-
-  // Adresse lisible (facultative, obtenue via reverse geocoding)
-  address: {
-    type: String,
-    default: "",
+  verify_account: {
+    type: Boolean,
+    default: false,
   },
-
+  role: {
+    type: String,
+    enum: ["farmer", "buyer", "admin"],
+    default: "buyer",
+  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
-
   updatedAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-// Index géospatial requis pour les recherches avec $near
+// Index géospatial
 UserSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("User", UserSchema);
