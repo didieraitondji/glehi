@@ -1,10 +1,10 @@
-// models/Category.js
+// models/ProducerType.js
 const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 
-const CategorySchema = new mongoose.Schema(
+const ProducerTypeSchema = new mongoose.Schema(
   {
-    categoryId: {
+    typeId: {
       type: String,
       unique: true,
       default: uuidv4,
@@ -20,10 +20,10 @@ const CategorySchema = new mongoose.Schema(
     },
     image: {
       type: String,
-      default: "", // URL ou nom du fichier
+      default: "", // lien URL ou nom de fichier
     },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("Category", CategorySchema);
+module.exports = mongoose.model("ProducerType", ProducerTypeSchema);

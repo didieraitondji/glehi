@@ -141,4 +141,40 @@ categoryRouter.put("/:id", verifyToken, categoryController.updateCategory);
  */
 categoryRouter.delete("/:id", verifyToken, categoryController.deleteCategory);
 
+// /api/categories/:id/products → retourne les produits associés à une catégorie
+
+/**
+ * @swagger
+ * /api/categories/{id}/products:
+ *   get:
+ *     summary: Lister les produits liés à une catégorie
+ *     tags: [Categories]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID (categoryId) de la catégorie
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Produits de la catégorie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Aucune catégorie ou aucun produit trouvé
+ */
+
+categoryRouter.get(
+  "/:id/products",
+  verifyToken,
+  categoryController.getProductsByCategory
+);
+
 module.exports = categoryRouter;

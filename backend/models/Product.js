@@ -11,11 +11,11 @@ const ProductSchema = new mongoose.Schema({
   available: { type: Boolean, default: true },
   isFavorite: { type: Boolean, default: false },
   discount: { type: Number, default: 0 },
-  unit: { type: String },
+  units: { type: String },
   sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
   // Localisation géographique
-  location: {
+  /*location: {
     type: {
       type: String,
       enum: ["Point"],
@@ -31,7 +31,7 @@ const ProductSchema = new mongoose.Schema({
   address: {
     type: String,
     default: "",
-  },
+  }, */
 
   createdAt: {
     type: Date,

@@ -10,7 +10,7 @@ const app = express();
 
 // === Middleware global ===
 app.use(express.json());
-app.use(cors()); // Permettre les requêtes CORS
+app.use(cors());
 
 // === Documentation Swagger ===
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
@@ -24,8 +24,9 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
 const transactionRoutes = require("./routes/transactionRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
-const authRoutes = require("./routes/authRoutes"); // 🔥 nouvelle route
-const preferenceRoutes = require("./routes/preferenceRoutes");
+const authRoutes = require("./routes/authRoutes");
+const preferenceRoutes = require("./routes/userPreferencesRoutes");
+const producerRoutes = require("./routes/producerTypeRoutes");
 
 // === Utilisation des routes ===
 app.use("/api/users", userRoutes);
@@ -36,7 +37,7 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/categories", categoryRoutes);
 app.use("/api/transactions", transactionRoutes);
 app.use("/api/notifications", notificationRoutes);
-app.use("/api/auth", authRoutes); // 🔥 ajout ici
+app.use("/api/auth", authRoutes);
 app.use("/api/preferences", preferenceRoutes);
 
 // === Route par défaut ===

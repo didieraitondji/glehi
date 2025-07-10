@@ -1,5 +1,7 @@
 const Category = require("../models/Category");
+const Product = require("../models/Product");
 
+// Obtenir toutes les catégories
 exports.getAllCategories = async (req, res) => {
   try {
     const categories = await Category.find();
@@ -9,9 +11,10 @@ exports.getAllCategories = async (req, res) => {
   }
 };
 
+// Obtenir une catégorie par categoryId (et non _id)
 exports.getCategoryById = async (req, res) => {
   try {
-    const category = await Category.findById(req.params.id);
+    const category = await Category.findOne({ categoryId: req.params.id });
     if (!category)
       return res.status(404).json({ error: "Catégorie non trouvée" });
     res.json(category);
@@ -20,6 +23,7 @@ exports.getCategoryById = async (req, res) => {
   }
 };
 
+// Créer une nouvelle catégorie
 exports.createCategory = async (req, res) => {
   try {
     const category = new Category(req.body);
@@ -30,34 +34,41 @@ exports.createCategory = async (req, res) => {
   }
 };
 
+// Mettre à jour une catégorie via categoryId
 exports.updateCategory = async (req, res) => {
   try {
-    const category = await Category.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    res.json(category);
+    const updated = await Category.findOneAndUpdate(
+      { categoryId: req.params.id },
+      req.body,
+      { new: true }
+    );
+
+    if (!updated)
+      return res.status(404).json({ error: "Catégorie non trouvée" });
+
+    res.json(updated);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
 
+// Supprimer une catégorie via categoryId
 exports.deleteCategory = async (req, res) => {
   try {
-    const category = await Category.findByIdAndDelete(req.params.id);
+    const deleted = await Category.findOneAndDelete({
+      categoryId: req.params.id,
+    });
+
+    if (!deleted)
+      return res.status(404).json({ error: "Catégorie non trouvée" });
+
     res.json({ message: "Catégorie supprimée" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
 
-exports.getProductsByCategory = async (req, res) => {
-  try {
-    const products = await Product.find({ category: req.params.categoryId });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+
 
 exports.getCategoriesByProductId = async (req, res) => {
   try {
@@ -90,3 +101,14 @@ exports.getCategoriesByProductIdAndReviewerId = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.getProductsByCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const products = await Product.find({ categoryId: id });
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
