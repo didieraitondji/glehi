@@ -30,7 +30,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       500:
  *         description: Erreur serveur
  */
-categoryRouter.get("/", verifyToken, categoryController.getAllCategories);
+categoryRouter.get("/", categoryController.getAllCategories);
 
 /**
  * @swagger
