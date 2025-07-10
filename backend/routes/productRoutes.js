@@ -31,7 +31,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       500:
  *         description: Erreur serveur
  */
-productRouter.get("/", verifyToken, productController.getAllProducts);
+productRouter.get("/", productController.getAllProducts);
 
 /**
  * @swagger
@@ -58,7 +58,7 @@ productRouter.get("/", verifyToken, productController.getAllProducts);
  *       404:
  *         description: Produit non trouvé
  */
-productRouter.get("/:id", verifyToken, productController.getProductById);
+productRouter.get("/:id", productController.getProductById);
 
 /**
  * @swagger

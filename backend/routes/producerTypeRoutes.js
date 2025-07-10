@@ -31,7 +31,7 @@ const router = express.Router();
  *       500:
  *         description: Erreur serveur
  */
-router.get("/", verifyToken, producerTypeController.getAllProducerTypes);
+router.get("/", producerTypeController.getAllProducerTypes);
 
 /**
  * @swagger
@@ -58,7 +58,7 @@ router.get("/", verifyToken, producerTypeController.getAllProducerTypes);
  *       404:
  *         description: Type non trouvé
  */
-router.get("/:id", verifyToken, producerTypeController.getProducerTypeById);
+router.get("/:id", producerTypeController.getProducerTypeById);
 
 /**
  * @swagger

@@ -30,11 +30,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       500:
  *         description: Erreur serveur
  */
-notificationRouter.get(
-  "/",
-  verifyToken,
-  notificationController.getAllNotifications
-);
+notificationRouter.get("/", notificationController.getAllNotifications);
 
 /**
  * @swagger
@@ -61,11 +57,7 @@ notificationRouter.get(
  *       404:
  *         description: Notification non trouvée
  */
-notificationRouter.get(
-  "/:id",
-  verifyToken,
-  notificationController.getNotificationById
-);
+notificationRouter.get("/:id", notificationController.getNotificationById);
 
 /**
  * @swagger

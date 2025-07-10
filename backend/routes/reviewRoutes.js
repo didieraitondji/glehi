@@ -30,7 +30,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       500:
  *         description: Erreur serveur
  */
-reviewRouter.get("/", verifyToken, reviewController.getAllReviews);
+reviewRouter.get("/", reviewController.getAllReviews);
 
 /**
  * @swagger
@@ -57,7 +57,7 @@ reviewRouter.get("/", verifyToken, reviewController.getAllReviews);
  *       404:
  *         description: Avis non trouvé
  */
-reviewRouter.get("/:id", verifyToken, reviewController.getReviewById);
+reviewRouter.get("/:id", reviewController.getReviewById);
 
 /**
  * @swagger

@@ -30,7 +30,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       500:
  *         description: Erreur serveur
  */
-messageRouter.get("/", verifyToken, messageController.getAllMessages);
+messageRouter.get("/", messageController.getAllMessages);
 
 /**
  * @swagger
@@ -57,7 +57,7 @@ messageRouter.get("/", verifyToken, messageController.getAllMessages);
  *       404:
  *         description: Message non trouvé
  */
-messageRouter.get("/:id", verifyToken, messageController.getMessageById);
+messageRouter.get("/:id", messageController.getMessageById);
 
 /**
  * @swagger
