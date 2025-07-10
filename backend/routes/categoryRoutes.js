@@ -57,7 +57,7 @@ categoryRouter.get("/", categoryController.getAllCategories);
  *       404:
  *         description: Catégorie non trouvée
  */
-categoryRouter.get("/:id", verifyToken, categoryController.getCategoryById);
+categoryRouter.get("/:id", categoryController.getCategoryById);
 
 /**
  * @swagger
