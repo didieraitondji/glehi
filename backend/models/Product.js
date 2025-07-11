@@ -6,13 +6,19 @@ const ProductSchema = new mongoose.Schema({
   description: { type: String },
   quantity: { type: Number },
   price: { type: Number },
-  categoryId: { type: mongoose.Schema.Types.ObjectId, ref: "Category" },
+  categoryId: { 
+    type: String,
+    default: "no-category",
+  },
   images: { type: String },
   available: { type: Boolean, default: true },
   isFavorite: { type: Boolean, default: false },
   discount: { type: Number, default: 0 },
   units: { type: String },
-  sellerId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  sellerId: {
+    type: String,
+    default: "no-seller",
+  },
 
   // Localisation géographique
   /*location: {
