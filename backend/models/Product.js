@@ -6,7 +6,7 @@ const ProductSchema = new mongoose.Schema({
   description: { type: String },
   quantity: { type: Number },
   price: { type: Number },
-  categoryId: { 
+  categoryId: {
     type: String,
     default: "no-category",
   },
@@ -51,6 +51,6 @@ const ProductSchema = new mongoose.Schema({
 });
 
 // Index géospatial pour les recherches
-ProductSchema.index({ location: "2dsphere" });
+// ProductSchema.index({ location: "2dsphere" });
 
 module.exports = mongoose.model("Product", ProductSchema);
