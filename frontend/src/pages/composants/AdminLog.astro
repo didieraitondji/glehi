@@ -1,5 +1,11 @@
 ---
 // AdminLogin.astro
+
+const API_URL = import.meta.env.PUBLIC_API_URL || "http://localhost:3000";
+
+// Logique côté serveur (si nécessaire)
+// Par exemple, redirection côté serveur si déjà connecté
+// Mais attention : localStorage n'est pas accessible côté serveur
 ---
 
 <div
@@ -148,8 +154,9 @@
   </div>
 </div>
 
-<script>
-  const API_URL = import.meta.env.API_URL || "http://localhost:3000";
+<!-- Passage de la variable d'environnement au client -->
+<script define:vars={{ API_URL }}>
+  // Maintenant API_URL est accessible dans le script côté client
 
   document.addEventListener("DOMContentLoaded", function () {
     checkAuthStatus();
@@ -162,20 +169,16 @@
     const token = localStorage.getItem("admin_token");
     const userRole = localStorage.getItem("user_role");
 
-    if (token && (userRole === "admin" || userRole === "farmer")) {
+    if (token && userRole === "admin") {
       window.location.href = "/admin/dashboard";
     }
   }
 
   // Validation simple
   function setupValidation() {
-    const phoneInput = document.getElementById("phone") as HTMLInputElement;
-    const passwordInput = document.getElementById(
-      "password"
-    ) as HTMLInputElement;
-    const submitButton = document.getElementById(
-      "submitButton"
-    ) as HTMLButtonElement;
+    const phoneInput = document.getElementById("phone");
+    const passwordInput = document.getElementById("password");
+    const submitButton = document.getElementById("submitButton");
 
     if (!phoneInput || !passwordInput || !submitButton) {
       console.error("Éléments du formulaire non trouvés");
@@ -244,10 +247,8 @@
 
   // Gestion du formulaire
   function setupForm() {
-    const form = document.getElementById("loginForm") as HTMLFormElement;
-    const submitButton = document.getElementById(
-      "submitButton"
-    ) as HTMLButtonElement;
+    const form = document.getElementById("loginForm");
+    const submitButton = document.getElementById("submitButton");
 
     if (!form || !submitButton) {
       console.error("Formulaire non trouvé");
@@ -267,10 +268,24 @@
       submitButton.textContent = "Connexion...";
 
       try {
-        const response = await fetch(`${API_URL}/auth/login`, {
+        console.log("Tentative de connexion avec:", {
+          phone: phone?.toString().trim() || "",
+          password: password?.toString() || "",
+          rememberMe,
+          API_URL,
+        });
+
+        // Construire l'URL correctement
+        const loginUrl = API_URL.endsWith("/")
+          ? `${API_URL}auth/login`
+          : `${API_URL}/auth/login`;
+        console.log("URL de connexion:", loginUrl);
+
+        const response = await fetch(loginUrl, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Accept: "application/json",
           },
           body: JSON.stringify({
             phone: phone?.toString().trim() || "",
@@ -278,11 +293,22 @@
           }),
         });
 
+        console.log(
+          "Réponse du serveur:",
+          response.status,
+          response.statusText
+        );
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
+        console.log("Données reçues:", data);
 
         if (response.ok && data.token && data.user) {
           // Vérifier le rôle
-          if (data.user.role !== "admin" && data.user.role !== "farmer") {
+          if (data.user.role !== "admin") {
             showError(
               "Accès refusé. Seuls les administrateurs et agriculteurs peuvent se connecter."
             );
@@ -307,9 +333,23 @@
         }
       } catch (error) {
         console.error("Erreur de connexion:", error);
-        showError(
-          "Erreur de connexion. Veuillez vérifier votre connexion internet."
-        );
+
+        // Messages d'erreur plus spécifiques
+        let errorMessage = "Erreur de connexion. Veuillez réessayer.";
+
+        if (
+          error.name === "TypeError" &&
+          error.message.includes("Failed to fetch")
+        ) {
+          errorMessage =
+            "Impossible de contacter le serveur. Vérifiez votre connexion internet et que le serveur est accessible.";
+        } else if (error.message.includes("HTTP error")) {
+          errorMessage = `Erreur serveur: ${error.message}`;
+        } else if (error.message) {
+          errorMessage = error.message;
+        }
+
+        showError(errorMessage);
       } finally {
         // Réactiver le bouton
         submitButton.disabled = false;
@@ -319,7 +359,7 @@
   }
 
   // Afficher les erreurs
-  function showError(message: string) {
+  function showError(message) {
     const errorDiv = document.getElementById("errorMessage");
     const errorText = document.getElementById("errorText");
 

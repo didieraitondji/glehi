@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema({
   },
   username: {
     type: String,
-    required: true,
+    required: false,
     unique: true,
   },
   producer_type: {
@@ -50,7 +50,7 @@ const UserSchema = new mongoose.Schema({
     },
     coordinates: {
       type: [Number],
-      default: undefined,
+      default: [0, 0],
     },
   },
   verify_account: {

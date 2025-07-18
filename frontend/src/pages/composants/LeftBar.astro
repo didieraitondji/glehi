@@ -1,0 +1,141 @@
+---
+// LeftBar.astro
+export interface Props {
+  currentPage?: string;
+  isCollapsed?: boolean;
+}
+
+const { currentPage = "dashboard", isCollapsed = false } = Astro.props;
+
+const menuItems = [
+  {
+    id: "dashboard",
+    label: "DASHBOARD",
+    icon: "📊",
+  },
+  { id: "clients", label: "CLIENTS", icon: "🛒" },
+  { id: "producteurs", label: "PRODUCTEURS", icon: "🌱" },
+  {
+    id: "produits",
+    label: "PRODUITS",
+    icon: "📦",
+  },
+  {
+    id: "categories",
+    label: "CATÉGORIES",
+    icon: "🏷️",
+  },
+  {
+    id: "transactions",
+    label: "TRANSACTIONS",
+    icon: "💳",
+  },
+];
+---
+
+<div
+  class={`${isCollapsed ? "w-16" : "w-64"} bg-white border-r border-gray-200 min-h-screen flex flex-col transition-all duration-300`}
+>
+  <!-- Logo -->
+  <div class="p-6 border-b border-gray-100">
+    <div class="flex items-center space-x-3">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center">
+        <img src="/images/favicon_sbg.png" alt="Logo GléHi" class="w-8 h-8" />
+      </div>
+      {
+        !isCollapsed && (
+          <div>
+            <h1 class="text-lg font-semibold text-gray-900">GLEHI</h1>
+            <p class="text-xs text-gray-500">Administration</p>
+          </div>
+        )
+      }
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="flex-1 p-4 space-y-1">
+    {
+      menuItems.map((item) => (
+        <div>
+          {/* Menu principal */}
+          <a
+            href={`/admin/${item.id}`}
+            class={`flex items-center justify-between py-3 px-3 text-sm font-medium rounded-lg transition-colors duration-200 ${
+              currentPage === item.id ||
+              (item.submenu &&
+                item.submenu.some((sub) => currentPage === sub.id))
+                ? "bg-green-50 text-green-700 border border-green-200"
+                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            }`}
+          >
+            <div class="flex items-center space-x-3">
+              <span class="text-lg">{item.icon}</span>
+              {!isCollapsed && <span>{item.label}</span>}
+            </div>
+            {!isCollapsed && item.hasSubmenu && (
+              <svg
+                class="w-4 h-4 transition-transform duration-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            )}
+          </a>
+
+          {/* Sous-menus (seulement pour utilisateur) */}
+          {!isCollapsed && item.submenu && (
+            <div class="ml-6 mt-1 space-y-1 border-l border-gray-200 pl-4">
+              {item.submenu.map((subItem) => (
+                <a
+                  href={`/${subItem.id}`}
+                  class={`flex items-center space-x-3 py-2 px-3 text-sm rounded-md transition-colors duration-200 ${
+                    currentPage === subItem.id
+                      ? "bg-green-50 text-green-700"
+                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-700"
+                  }`}
+                >
+                  <span class="text-sm">{subItem.icon}</span>
+                  <span>{subItem.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))
+    }
+  </nav>
+</div>
+
+<script>
+  function toggleSidebar() {
+    window.dispatchEvent(new CustomEvent("toggle-sidebar"));
+  }
+</script>
+
+<style>
+  /* Scrollbar minimaliste */
+  nav::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  nav::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  nav::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+  }
+
+  nav::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+</style>
