@@ -68,8 +68,6 @@ exports.deleteCategory = async (req, res) => {
   }
 };
 
-
-
 exports.getCategoriesByProductId = async (req, res) => {
   try {
     const categories = await Category.find({ products: req.params.productId });
@@ -104,11 +102,9 @@ exports.getCategoriesByProductIdAndReviewerId = async (req, res) => {
 
 exports.getProductsByCategory = async (req, res) => {
   try {
-    const { id } = req.params;
-    const products = await Product.find({ categoryId: id });
+    const products = await Product.find({ categoryId: req.params.id });
     res.json(products);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
-

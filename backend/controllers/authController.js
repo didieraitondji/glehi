@@ -23,11 +23,23 @@ exports.register = async (req, res) => {
     } = req.body;
 
     // Vérifier si le numéro ou username est déjà utilisé
-    const existingUser = await User.findOne({ $or: [{ phone }, { username }] });
-    if (existingUser) {
-      return res
-        .status(400)
-        .json({ message: "Téléphone ou nom d'utilisateur déjà utilisé" });
+
+    if (username && username.length != 0) {
+      const existingUser = await User.findOne({
+        $or: [{ phone }, { username }],
+      });
+      if (existingUser) {
+        return res
+          .status(400)
+          .json({ message: "Téléphone ou nom d'utilisateur déjà utilisé" });
+      }
+    } else {
+      const existingUser = await User.findOne({ phone });
+      if (existingUser) {
+        return res
+          .status(400)
+          .json({ message: "Téléphone ou nom d'utilisateur déjà utilisé" });
+      }
     }
 
     // Hasher le mot de passe

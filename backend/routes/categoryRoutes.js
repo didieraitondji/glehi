@@ -173,7 +173,6 @@ categoryRouter.delete("/:id", verifyToken, categoryController.deleteCategory);
 
 categoryRouter.get(
   "/:id/products",
-  verifyToken,
   categoryController.getProductsByCategory
 );
 

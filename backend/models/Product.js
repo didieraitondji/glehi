@@ -8,7 +8,7 @@ const ProductSchema = new mongoose.Schema({
   price: { type: Number },
   categoryId: {
     type: String,
-    default: "no-category",
+    required: true,
   },
   images: { type: String },
   available: { type: Boolean, default: true },
