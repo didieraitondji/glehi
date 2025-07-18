@@ -41,7 +41,7 @@ const verifyToken = require("../middlewares/verifyToken");
  *       400:
  *         description: Préférence déjà existante
  */
-router.post("/", verifyToken, userPreferencesController.createPreference);
+router.post("/", userPreferencesController.createPreference);
 
 /**
  * @swagger
