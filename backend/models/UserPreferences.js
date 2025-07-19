@@ -3,19 +3,19 @@ const mongoose = require("mongoose");
 const UserPreferencesSchema = new mongoose.Schema(
   {
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "User",
       required: true,
     },
     categoryId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Category",
       required: true,
     },
     productId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Product",
-      required: true,
+      required: false,
     },
   },
   {

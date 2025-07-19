@@ -9,8 +9,7 @@ exports.createPreference = async (req, res) => {
 
     const existing = await UserPreferences.findOne({
       userId,
-      categoryId,
-      productId,
+      categoryId
     });
 
     if (existing) {
@@ -31,7 +30,7 @@ exports.createPreference = async (req, res) => {
  */
 exports.getPreferencesByUser = async (req, res) => {
   try {
-    const { userId } = req.params;
+    const { userId } = req.params.id;
 
     const preferences = await UserPreferences.find({ userId })
       .populate("categoryId")
