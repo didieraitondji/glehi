@@ -4,14 +4,6 @@ import node from "@astrojs/node";
 
 export default defineConfig({
   output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
+  adapter: cloudflare(),
   integrations: [tailwind()],
-  vite: {
-    server: {
-      host: true,
-      allowedHosts: ["thick-experts-turn.loca.lt", /\.loca\.lt$/],
-    },
-  },
 });
