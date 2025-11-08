@@ -27,6 +27,7 @@ const notificationRoutes = require("./routes/notificationRoutes");
 const authRoutes = require("./routes/authRoutes");
 const preferenceRoutes = require("./routes/userPreferencesRoutes");
 const producerRoutes = require("./routes/producerTypeRoutes");
+const waitlistRoutes = require("./routes/waitlist");
 
 // === Utilisation des routes ===
 app.use("/api/users", userRoutes);
@@ -39,6 +40,9 @@ app.use("/api/transactions", transactionRoutes);
 app.use("/api/notifications", notificationRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/preferences", preferenceRoutes);
+
+// === récupération des mails des utilisateurs ===
+app.use("/api/waitlist", waitlistRoutes);
 
 // === Route par défaut ===
 app.get("/", (req, res) => {
