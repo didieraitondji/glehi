@@ -3,21 +3,43 @@
 export interface Props {
   title?: string;
   subtitle?: string;
-  videoUrl?: string;
-  videoPoster?: string;
+  videoUrl: string; // URL Vimeo, YouTube ou autre iframe
 }
 
 const {
   title = "Découvrez GléHi en Action",
   subtitle = "Une expérience intuitive pour connecter producteurs et acheteurs au Bénin",
-  videoUrl = "/videos/glehi-demo.mp4",
-  videoPoster = "/images/video-poster.jpg",
+  videoUrl,
 } = Astro.props;
+
+// Fonction pour convertir les URLs en embed URLs
+function getEmbedUrl(url: string): string {
+  // YouTube
+  if (url.includes("youtube.com/watch")) {
+    const videoId = url.split("v=")[1]?.split("&")[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+  if (url.includes("youtu.be/")) {
+    const videoId = url.split("youtu.be/")[1]?.split("?")[0];
+    return `https://www.youtube.com/embed/${videoId}`;
+  }
+
+  // Vimeo
+  if (url.includes("vimeo.com/")) {
+    const videoId = url.split("vimeo.com/")[1]?.split("?")[0];
+    return `https://player.vimeo.com/video/${videoId}`;
+  }
+
+  // Si c'est déjà une URL embed ou autre, on la retourne telle quelle
+  return url;
+}
+
+const embedUrl = getEmbedUrl(videoUrl);
 ---
 
 <section class="video-showcase">
   <div class="video-container">
-    <!-- Header Section -->
+    <!-- Header -->
     <div class="video-header">
       <div class="badge">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
@@ -31,103 +53,15 @@ const {
       <p class="video-subtitle">{subtitle}</p>
     </div>
 
-    <!-- Video Player Container -->
+    <!-- Video Player -->
     <div class="video-wrapper">
-      <!-- Decorative Elements -->
-      <div class="video-decoration">
-        <div class="deco-circle deco-1"></div>
-        <div class="deco-circle deco-2"></div>
-        <div class="deco-circle deco-3"></div>
-        <div class="deco-shape shape-1"></div>
-        <div class="deco-shape shape-2"></div>
-      </div>
-
-      <!-- Video Frame -->
-      <div class="video-frame">
-        <div class="video-screen">
-          <video
-            id="appVideo"
-            class="video-player"
-            poster={videoPoster}
-            controls
-            preload="metadata"
-          >
-            <source src={videoUrl} type="video/mp4" />
-            Votre navigateur ne supporte pas la lecture de vidéos.
-          </video>
-
-          <!-- Play Overlay (shown before video starts) -->
-          <div class="play-overlay" id="playOverlay">
-            <button
-              class="play-button"
-              id="playButton"
-              aria-label="Lire la vidéo"
-            >
-              <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-                <circle cx="12" cy="12" r="11" stroke="white" stroke-width="2"
-                ></circle>
-                <path d="M10 8l6 4-6 4V8z" fill="white"></path>
-              </svg>
-            </button>
-          </div>
-        </div>
-
-        <!-- Video Stats/Features -->
-        <div class="video-stats">
-          <div class="stat-item">
-            <div class="stat-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2L2 7l10 5 10-5-10-5z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"></path>
-                <path
-                  d="M2 17l10 5 10-5M2 12l10 5 10-5"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <span class="stat-value">Interface Simple</span>
-              <span class="stat-label">Navigation Intuitive</span>
-            </div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linejoin="round"></path>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <span class="stat-value">Rapide & Réactif</span>
-              <span class="stat-label">Performances Optimales</span>
-            </div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"
-                  stroke="currentColor"
-                  stroke-width="2"></path>
-                <circle cx="12" cy="9" r="2" fill="currentColor"></circle>
-              </svg>
-            </div>
-            <div class="stat-content">
-              <span class="stat-value">Géolocalisation</span>
-              <span class="stat-label">Trouvez Près de Vous</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <iframe
+        src={embedUrl}
+        class="video-iframe"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen
+        title={title}></iframe>
     </div>
 
     <!-- Call to Action -->
@@ -146,36 +80,24 @@ const {
       </a>
     </div>
   </div>
-
-  <!-- Background Elements -->
-  <div class="bg-elements">
-    <div class="bg-gradient bg-gradient-1"></div>
-    <div class="bg-gradient bg-gradient-2"></div>
-    <div class="bg-dots"></div>
-  </div>
 </section>
 
 <style>
   .video-showcase {
     padding: 6rem 0;
     background: linear-gradient(135deg, #f0f8f0 0%, #ffffff 50%, #e8f5e8 100%);
-    position: relative;
-    overflow: hidden;
   }
 
   .video-container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    position: relative;
-    z-index: 2;
   }
 
   /* Header */
   .video-header {
     text-align: center;
     margin-bottom: 4rem;
-    animation: fadeInUp 0.8s ease-out;
   }
 
   .badge {
@@ -190,7 +112,6 @@ const {
     font-weight: 600;
     margin-bottom: 1.5rem;
     box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
-    animation: pulse 2s ease-in-out infinite;
   }
 
   .video-title {
@@ -199,10 +120,6 @@ const {
     color: #1a365d;
     margin-bottom: 1rem;
     line-height: 1.2;
-    background: linear-gradient(135deg, #1a365d, #2d5016);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
   }
 
   .video-subtitle {
@@ -213,209 +130,30 @@ const {
     line-height: 1.7;
   }
 
-  /* Video Wrapper */
+  /* Video */
   .video-wrapper {
     position: relative;
-    margin-bottom: 3rem;
-  }
-
-  .video-decoration {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  .deco-circle {
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(
-      135deg,
-      rgba(76, 175, 80, 0.1),
-      rgba(102, 187, 106, 0.1)
-    );
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .deco-1 {
-    width: 150px;
-    height: 150px;
-    top: -50px;
-    left: -50px;
-    animation-delay: 0s;
-  }
-
-  .deco-2 {
-    width: 100px;
-    height: 100px;
-    top: 50%;
-    right: -30px;
-    animation-delay: 1s;
-  }
-
-  .deco-3 {
-    width: 120px;
-    height: 120px;
-    bottom: -40px;
-    left: 10%;
-    animation-delay: 2s;
-  }
-
-  .deco-shape {
-    position: absolute;
-    background: linear-gradient(
-      45deg,
-      rgba(74, 124, 89, 0.05),
-      rgba(107, 142, 35, 0.05)
-    );
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    animation: morph 8s ease-in-out infinite;
-  }
-
-  .shape-1 {
-    width: 200px;
-    height: 200px;
-    top: 20%;
-    right: 5%;
-  }
-
-  .shape-2 {
-    width: 180px;
-    height: 180px;
-    bottom: 10%;
-    left: 8%;
-    animation-delay: 2s;
-  }
-
-  /* Video Frame */
-  .video-frame {
-    position: relative;
-    z-index: 2;
-    background: white;
+    aspect-ratio: 16 / 9;
     border-radius: 24px;
-    padding: 2rem;
+    overflow: hidden;
     box-shadow:
       0 25px 50px rgba(0, 0, 0, 0.1),
       0 10px 25px rgba(76, 175, 80, 0.05);
-    border: 1px solid rgba(76, 175, 80, 0.1);
-    transition: all 0.4s ease;
-  }
-
-  .video-frame:hover {
-    transform: translateY(-5px);
-    box-shadow:
-      0 35px 70px rgba(0, 0, 0, 0.15),
-      0 15px 35px rgba(76, 175, 80, 0.1);
-  }
-
-  .video-screen {
-    position: relative;
-    border-radius: 16px;
-    overflow: hidden;
+    margin-bottom: 3rem;
     background: #000;
-    aspect-ratio: 16 / 9;
   }
 
-  .video-player {
-    width: 100%;
-    height: 100%;
-    /* object-fit: cover; */
-  }
-
-  /* Play Overlay */
-  .play-overlay {
+  .video-iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-      135deg,
-      rgba(0, 0, 0, 0.5),
-      rgba(46, 125, 50, 0.3)
-    );
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 1;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-  }
-
-  .play-overlay.hidden {
-    opacity: 0;
-  }
-
-  .play-button {
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
     border: none;
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    pointer-events: all;
-    animation: pulseButton 2s ease-in-out infinite;
   }
 
-  .play-button:hover {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.3);
-  }
-
-  /* Video Stats */
-  .video-stats {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(226, 232, 240, 0.6);
-  }
-
-  .stat-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .stat-icon {
-    width: 48px;
-    height: 48px;
-    background: linear-gradient(135deg, #e8f5e8, #f0f9f4);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #2e7d32;
-    flex-shrink: 0;
-  }
-
-  .stat-content {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
-  .stat-value {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #1a202c;
-  }
-
-  .stat-label {
-    font-size: 0.85rem;
-    color: #64748b;
-  }
-
-  /* CTA Section */
+  /* CTA */
   .video-cta {
     text-align: center;
     padding: 3rem 2rem;
@@ -455,129 +193,7 @@ const {
     box-shadow: 0 12px 35px rgba(76, 175, 80, 0.4);
   }
 
-  /* Background Elements */
-  .bg-elements {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .bg-gradient {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.3;
-  }
-
-  .bg-gradient-1 {
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(135deg, #4caf50, #66bb6a);
-    top: -10%;
-    right: -10%;
-    animation: float 10s ease-in-out infinite;
-  }
-
-  .bg-gradient-2 {
-    width: 400px;
-    height: 400px;
-    background: linear-gradient(225deg, #2e7d32, #4caf50);
-    bottom: -10%;
-    left: -10%;
-    animation: float 12s ease-in-out infinite reverse;
-  }
-
-  .bg-dots {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: radial-gradient(
-      circle,
-      rgba(76, 175, 80, 0.1) 1px,
-      transparent 1px
-    );
-    background-size: 30px 30px;
-    opacity: 0.5;
-  }
-
-  /* Animations */
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes pulse {
-    0%,
-    100% {
-      transform: scale(1);
-      box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
-    }
-    50% {
-      transform: scale(1.05);
-      box-shadow: 0 6px 30px rgba(76, 175, 80, 0.5);
-    }
-  }
-
-  @keyframes pulseButton {
-    0%,
-    100% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-  }
-
-  @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  @keyframes morph {
-    0%,
-    100% {
-      border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-      transform: rotate(0deg);
-    }
-    50% {
-      border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%;
-      transform: rotate(180deg);
-    }
-  }
-
   /* Responsive */
-  @media (max-width: 1024px) {
-    .video-showcase {
-      padding: 4rem 0;
-    }
-
-    .video-header {
-      margin-bottom: 3rem;
-    }
-
-    .video-stats {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-  }
-
   @media (max-width: 768px) {
     .video-showcase {
       padding: 3rem 0;
@@ -587,27 +203,13 @@ const {
       padding: 0 1.5rem;
     }
 
-    .video-frame {
-      padding: 1.5rem;
+    .video-header {
+      margin-bottom: 2.5rem;
     }
 
-    .video-stats {
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-    }
-
-    .stat-item {
-      gap: 0.75rem;
-    }
-
-    .stat-icon {
-      width: 40px;
-      height: 40px;
-    }
-
-    .play-button {
-      width: 80px;
-      height: 80px;
+    .video-wrapper {
+      margin-bottom: 2rem;
+      border-radius: 16px;
     }
 
     .cta-text {
@@ -617,11 +219,6 @@ const {
     .cta-button {
       padding: 0.875rem 1.5rem;
       font-size: 1rem;
-    }
-
-    .deco-circle,
-    .deco-shape {
-      display: none;
     }
   }
 
@@ -634,47 +231,8 @@ const {
       padding: 0 1rem;
     }
 
-    .video-frame {
-      padding: 1rem;
-    }
-
     .video-cta {
       padding: 2rem 1rem;
     }
   }
 </style>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const video = document.getElementById(
-      "appVideo"
-    ) as HTMLVideoElement | null;
-    const playOverlay = document.getElementById("playOverlay");
-    const playButton = document.getElementById("playButton");
-
-    if (video && playOverlay && playButton) {
-      // Play video when clicking play button
-      playButton.addEventListener("click", () => {
-        video.play();
-        playOverlay.classList.add("hidden");
-      });
-
-      // Show overlay when video is paused
-      video.addEventListener("pause", () => {
-        if (video.currentTime !== video.duration) {
-          playOverlay.classList.remove("hidden");
-        }
-      });
-
-      // Hide overlay when video starts playing
-      video.addEventListener("play", () => {
-        playOverlay.classList.add("hidden");
-      });
-
-      // Show overlay when video ends
-      video.addEventListener("ended", () => {
-        playOverlay.classList.remove("hidden");
-      });
-    }
-  });
-</script>
