@@ -53,7 +53,7 @@ const {
     <!-- Contenu principal -->
     <div class="solve-content">
       <!-- Feature 1 -->
-      <div class="feature-card feature-1" data-aos="fade-right">
+      <div class="feature-card feature-1">
         <div class="feature-number">
           <span>{features[0].number}</span>
         </div>
@@ -64,7 +64,7 @@ const {
       </div>
 
       <!-- Feature 2 -->
-      <div class="feature-card feature-2" data-aos="fade-left">
+      <div class="feature-card feature-2">
         <div class="feature-number">
           <span>{features[1].number}</span>
         </div>
@@ -75,82 +75,17 @@ const {
       </div>
 
       <!-- Téléphone central -->
-      <div class="phone-container" data-aos="zoom-in">
+      <div class="phone-container">
         <div class="phone-bg-circle"></div>
-        <div class="phone-mockup-solve">
-          <div class="phone-frame-solve">
-            <div class="phone-screen-solve">
-              <!-- Status bar -->
-              <div class="status-bar-solve">
-                <div class="status-left">
-                  <svg
-                    class="back-arrow"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"
-                    ></path>
-                  </svg>
-                  <span class="welcome-text">Bienvenue sur GléHi</span>
-                </div>
-                <div class="status-right">
-                  <span class="time">9:41</span>
-                  <div class="signal-icons">
-                    <span class="signal">📶</span>
-                    <span class="wifi">📶</span>
-                    <span class="battery">🔋</span>
-                  </div>
-                </div>
-              </div>
-
-              <!-- App content -->
-              <div class="app-content-solve">
-                <div class="welcome-message">
-                  <p>
-                    Pour vous offrir la meilleure expérience, dites-nous quel
-                    rôle vous souhaitez jouer sur GléHi.
-                  </p>
-                </div>
-
-                <!-- Producteur Card -->
-                <div class="role-card producteur-card">
-                  <div class="role-illustration">
-                    <div class="farmer-scene">
-                      <div class="farmer-figure"></div>
-                      <div class="crops"></div>
-                      <div class="sun"></div>
-                    </div>
-                  </div>
-                  <p class="role-description">
-                    Vendez vos produits frais directement aux acheteurs locaux
-                    et augmentez vos revenus.
-                  </p>
-                  <button class="role-button producteur-btn">PRODUCTEUR</button>
-                </div>
-
-                <!-- Acheteur Card -->
-                <div class="role-card acheteur-card">
-                  <div class="role-illustration">
-                    <div class="buyer-scene">
-                      <div class="shopping-items"></div>
-                      <div class="buyer-figure"></div>
-                    </div>
-                  </div>
-                  <p class="role-description">
-                    Trouvez facilement des produits frais de qualité et soutenez
-                    l'agriculture locale.
-                  </p>
-                  <button class="role-button acheteur-btn">ACHETEUR</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <img
+          src="/images/banner_second.png"
+          alt="Mockup de téléphone"
+          class="phone-mockup"
+        />
       </div>
 
       <!-- Feature 3 -->
-      <div class="feature-card feature-3" data-aos="fade-right">
+      <div class="feature-card feature-3">
         <div class="feature-number">
           <span>{features[2].number}</span>
         </div>
@@ -161,7 +96,7 @@ const {
       </div>
 
       <!-- Feature 4 -->
-      <div class="feature-card feature-4" data-aos="fade-left">
+      <div class="feature-card feature-4">
         <div class="feature-number">
           <span>{features[3].number}</span>
         </div>
@@ -202,7 +137,7 @@ const {
   }
 
   .solve-title {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(1.75rem, 4vw, 3rem);
     font-weight: 700;
     color: #1a365d;
     margin-bottom: 1rem;
@@ -210,7 +145,7 @@ const {
   }
 
   .solve-subtitle {
-    font-size: 1.125rem;
+    font-size: clamp(1rem, 2vw, 1.125rem);
     color: #718096;
     line-height: 1.6;
     max-width: 600px;
@@ -240,6 +175,8 @@ const {
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
   }
 
   .feature-card::before {
@@ -304,7 +241,7 @@ const {
   }
 
   .feature-text h3 {
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 2vw, 1.25rem);
     font-weight: 600;
     color: #2d3748;
     margin-bottom: 0.75rem;
@@ -314,7 +251,7 @@ const {
   .feature-text p {
     color: #718096;
     line-height: 1.6;
-    font-size: 0.95rem;
+    font-size: clamp(0.875rem, 1.5vw, 0.95rem);
   }
 
   .phone-container {
@@ -324,6 +261,8 @@ const {
     justify-content: center;
     align-items: center;
     position: relative;
+    opacity: 0;
+    transform: scale(0.8);
   }
 
   .phone-bg-circle {
@@ -340,210 +279,12 @@ const {
     animation: rotate 20s linear infinite;
   }
 
-  .phone-mockup-solve {
+  .phone-mockup {
     position: relative;
     z-index: 2;
+    max-width: 100%;
+    height: auto;
     animation: float 3s ease-in-out infinite;
-  }
-
-  .phone-frame-solve {
-    width: 280px;
-    height: 580px;
-    background: #1a1a1a;
-    border-radius: 2.5rem;
-    padding: 0.5rem;
-    box-shadow:
-      0 25px 50px rgba(0, 0, 0, 0.3),
-      0 0 0 1px rgba(255, 255, 255, 0.1);
-  }
-
-  .phone-screen-solve {
-    width: 100%;
-    height: 100%;
-    background: white;
-    border-radius: 2rem;
-    overflow: hidden;
-    position: relative;
-  }
-
-  .status-bar-solve {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.75rem 1.25rem;
-    background: white;
-    font-size: 0.875rem;
-    border-bottom: 1px solid #f0f0f0;
-  }
-
-  .status-left {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .back-arrow {
-    width: 20px;
-    height: 20px;
-    color: #4a7c59;
-  }
-
-  .welcome-text {
-    font-weight: 600;
-    color: #2d3748;
-    font-size: 0.9rem;
-  }
-
-  .status-right {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .time {
-    font-weight: 600;
-    color: #2d3748;
-  }
-
-  .app-content-solve {
-    padding: 1.5rem;
-    height: calc(100% - 60px);
-    overflow-y: auto;
-  }
-
-  .welcome-message {
-    text-align: center;
-    margin-bottom: 2rem;
-  }
-
-  .welcome-message p {
-    font-size: 0.875rem;
-    color: #718096;
-    line-height: 1.5;
-  }
-
-  .role-card {
-    background: #f8f9fa;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    border: 2px solid transparent;
-    transition: all 0.3s ease;
-  }
-
-  .role-card:hover {
-    border-color: #4a7c59;
-    background: #f0f8f0;
-  }
-
-  .role-illustration {
-    height: 80px;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .farmer-scene {
-    position: relative;
-    width: 60px;
-    height: 60px;
-  }
-
-  .farmer-figure {
-    width: 30px;
-    height: 40px;
-    background: linear-gradient(135deg, #8b4513, #a0522d);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: absolute;
-    top: 10px;
-    left: 15px;
-  }
-
-  .crops {
-    width: 20px;
-    height: 15px;
-    background: linear-gradient(45deg, #228b22, #32cd32);
-    border-radius: 50%;
-    position: absolute;
-    bottom: 5px;
-    left: 5px;
-  }
-
-  .sun {
-    width: 15px;
-    height: 15px;
-    background: linear-gradient(135deg, #ffd700, #ffa500);
-    border-radius: 50%;
-    position: absolute;
-    top: 5px;
-    right: 5px;
-  }
-
-  .buyer-scene {
-    position: relative;
-    width: 60px;
-    height: 60px;
-  }
-
-  .shopping-items {
-    width: 25px;
-    height: 20px;
-    background: linear-gradient(45deg, #ff6347, #ff4500);
-    border-radius: 20%;
-    position: absolute;
-    top: 15px;
-    left: 10px;
-  }
-
-  .buyer-figure {
-    width: 25px;
-    height: 35px;
-    background: linear-gradient(135deg, #4169e1, #6495ed);
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    position: absolute;
-    top: 15px;
-    right: 10px;
-  }
-
-  .role-description {
-    font-size: 0.8rem;
-    color: #718096;
-    line-height: 1.4;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-
-  .role-button {
-    width: 100%;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 0.5rem;
-    font-weight: 600;
-    font-size: 0.85rem;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  .producteur-btn {
-    background: #4a7c59;
-    color: white;
-  }
-
-  .producteur-btn:hover {
-    background: #3d6b4a;
-    transform: translateY(-2px);
-  }
-
-  .acheteur-btn {
-    background: #2563eb;
-    color: white;
-  }
-
-  .acheteur-btn:hover {
-    background: #1d4ed8;
-    transform: translateY(-2px);
   }
 
   .decorative-bg {
@@ -622,33 +363,64 @@ const {
   }
 
   /* Responsive */
+  @media (max-width: 1200px) {
+    .solve-content {
+      grid-template-columns: 1fr 350px 1fr;
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 1.75rem;
+    }
+
+    .phone-bg-circle {
+      width: 250px;
+      height: 250px;
+    }
+  }
+
   @media (max-width: 1024px) {
+    .solve-section {
+      padding: 4rem 0;
+    }
+
+    .solve-header {
+      margin-bottom: 3rem;
+    }
+
     .solve-content {
       grid-template-columns: 1fr;
       grid-template-rows: auto;
-      gap: 3rem;
+      gap: 2.5rem;
     }
 
     .feature-card {
       justify-self: center !important;
-      max-width: 500px;
+      max-width: 600px;
+      width: 100%;
+      grid-column: 1 !important;
+      grid-row: auto !important;
     }
 
     .phone-container {
       grid-column: 1;
-      grid-row: 3;
+      grid-row: auto;
       order: 3;
+      padding: 2rem 0;
     }
 
     .feature-1 {
       order: 1;
     }
+
     .feature-2 {
       order: 2;
     }
+
     .feature-3 {
       order: 4;
     }
+
     .feature-4 {
       order: 5;
     }
@@ -659,41 +431,124 @@ const {
       padding: 3rem 0;
     }
 
+    .solve-container {
+      padding: 0 1.5rem;
+    }
+
+    .solve-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .solve-content {
+      gap: 2rem;
+    }
+
     .feature-card {
       flex-direction: column;
       text-align: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      padding: 1.5rem;
     }
 
-    .phone-frame-solve {
-      width: 250px;
-      height: 520px;
+    .feature-number {
+      width: 55px;
+      height: 55px;
+      font-size: 1.35rem;
     }
 
     .phone-bg-circle {
-      width: 250px;
-      height: 250px;
+      width: 220px;
+      height: 220px;
+    }
+
+    .phone-mockup {
+      max-width: 280px;
+    }
+
+    .bg-shape {
+      opacity: 0.5;
+    }
+
+    .shape-1 {
+      width: 150px;
+      height: 150px;
+    }
+
+    .shape-2 {
+      width: 120px;
+      height: 120px;
+    }
+
+    .shape-3 {
+      width: 80px;
+      height: 80px;
     }
   }
 
   @media (max-width: 480px) {
+    .solve-section {
+      padding: 2.5rem 0;
+    }
+
     .solve-container {
       padding: 0 1rem;
     }
 
-    .feature-card {
-      padding: 1.5rem;
+    .solve-header {
+      margin-bottom: 2rem;
     }
 
-    .phone-frame-solve {
-      width: 220px;
-      height: 460px;
+    .solve-content {
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      padding: 1.25rem;
+      gap: 1rem;
+      border-radius: 1.25rem;
+    }
+
+    .feature-number {
+      width: 50px;
+      height: 50px;
+      font-size: 1.25rem;
+    }
+
+    .phone-container {
+      padding: 1.5rem 0;
+    }
+
+    .phone-bg-circle {
+      width: 180px;
+      height: 180px;
+    }
+
+    .phone-mockup {
+      max-width: 240px;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .solve-section {
+      padding: 2rem 0;
+    }
+
+    .feature-card {
+      padding: 1rem;
+    }
+
+    .phone-mockup {
+      max-width: 200px;
+    }
+
+    .phone-bg-circle {
+      width: 160px;
+      height: 160px;
     }
   }
 </style>
 
 <script>
-  // Animation on scroll
   document.addEventListener("DOMContentLoaded", function () {
     const observerOptions = {
       threshold: 0.1,
@@ -710,21 +565,15 @@ const {
       });
     }, observerOptions);
 
-    // Observer les cartes features
     document.querySelectorAll(".feature-card").forEach((card) => {
       const cardElement = card as HTMLElement;
-      cardElement.style.opacity = "0";
-      cardElement.style.transform = "translateY(30px) scale(0.95)";
       cardElement.style.transition = "all 0.6s ease";
       observer.observe(card);
     });
 
-    // Observer le téléphone
     const phoneContainer = document.querySelector(".phone-container");
     if (phoneContainer) {
       const phoneElement = phoneContainer as HTMLElement;
-      phoneElement.style.opacity = "0";
-      phoneElement.style.transform = "scale(0.8)";
       phoneElement.style.transition = "all 0.8s ease";
       observer.observe(phoneContainer);
     }
